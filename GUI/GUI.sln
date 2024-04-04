@@ -5,6 +5,8 @@ VisualStudioVersion = 17.9.34607.119
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI", "GUI.csproj", "{17736F16-4EAB-417C-B13D-1F3B2879EAE4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web automation", "..\Web automation\Web automation.csproj", "{3C74A872-017B-41E0-BD81-14A1623154B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{17736F16-4EAB-417C-B13D-1F3B2879EAE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17736F16-4EAB-417C-B13D-1F3B2879EAE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17736F16-4EAB-417C-B13D-1F3B2879EAE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C74A872-017B-41E0-BD81-14A1623154B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C74A872-017B-41E0-BD81-14A1623154B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C74A872-017B-41E0-BD81-14A1623154B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C74A872-017B-41E0-BD81-14A1623154B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
