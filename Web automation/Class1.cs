@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Interactions;
 
 namespace Web_automation
 {
@@ -23,8 +24,12 @@ namespace Web_automation
 
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromMilliseconds(500);
 
-            var imagePicker = driver.FindElement(By.Name("file-label"));
-            imagePicker.Click();
+            Actions builder = new Actions(driver);
+
+            builder.MoveToElement(driver.FindElement(By.ClassName("file-input"))).Click().Build().Perform();
+
+            
+            
 
            // var textBox = driver.FindElement(By.Name("my-text"));
            //var submitButton = driver.FindElement(By.TagName("button"));
@@ -35,7 +40,7 @@ namespace Web_automation
            // var message = driver.FindElement(By.Id("message"));
            // var value = message.Text;
 
-            driver.Quit();
+            //driver.Quit();
 
             Console.WriteLine("TITLE: "+title);
         }
