@@ -5,11 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Interactions;
-
+using OpenQA.Selenium.Support.UI; 
 namespace Web_automation
 {
     internal class Class1
@@ -24,25 +22,30 @@ namespace Web_automation
 
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromMilliseconds(500);
 
-            Actions builder = new Actions(driver);
+           
 
-            builder.MoveToElement(driver.FindElement(By.ClassName("file-input"))).Click().Build().Perform();
+            driver.FindElement(By.Name("main-image")).SendKeys("C:\\Users\\Letha\\OneDrive\\Desktop\\PNG_transparency_demonstration_1.png");
 
-            
-            
+            var wait = new WebDriverWait(driver, TimeSpan.FromMilliseconds(10000));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("settings-submit")));
 
-           // var textBox = driver.FindElement(By.Name("my-text"));
-           //var submitButton = driver.FindElement(By.TagName("button"));
+            driver.FindElement(By.Id("settings-input-width")).Clear();
+            driver.FindElement(By.Id("settings-input-width")).SendKeys("256");
 
-           // textBox.SendKeys("Selenium");
-           // submitButton.Click();
+            driver.FindElement(By.Id("settings-input-height")).Clear();
+            driver.FindElement(By.Id("settings-input-height")).SendKeys("256");
 
-           // var message = driver.FindElement(By.Id("message"));
-           // var value = message.Text;
+            driver.FindElement(By.Id("settings-submit")).Click();
 
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.ClassName("topbar")));
+
+            driver.FindElement(By.XPath("/ html / body / div[3] / section[3] / div[2] / div[2]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"editor-save-btn\"]")).Click();
+
+            /*builder.MoveToElement(driver.FindElement(By.ClassName("file-input"))).Click().Build().Perform();*/
             //driver.Quit();
 
-            Console.WriteLine("TITLE: "+title);
+            
         }
     }
 }
