@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Interactions;
-using OpenQA.Selenium.Support.UI; 
+using OpenQA.Selenium.Support.UI;
 namespace Web_automation
 {
     internal class Class1
@@ -15,6 +15,8 @@ namespace Web_automation
         public static void Main()
         {
             IWebDriver driver = new FirefoxDriver();
+
+            
 
             driver.Navigate().GoToUrl("https://minecraftart.netlify.app/editor");
 
@@ -40,12 +42,16 @@ namespace Web_automation
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.ClassName("topbar")));
 
             driver.FindElement(By.XPath("/ html / body / div[3] / section[3] / div[2] / div[2]")).Click();
+
+            var filename = driver.FindElement(By.Id("editor-save-input"));
+            filename.Clear();
+            filename.SendKeys("Minecraft_Structure_Demo");
+
             driver.FindElement(By.XPath("//*[@id=\"editor-save-btn\"]")).Click();
 
-            /*builder.MoveToElement(driver.FindElement(By.ClassName("file-input"))).Click().Build().Perform();*/
-            //driver.Quit();
+            driver.Quit();
 
-            
+
         }
     }
 }
