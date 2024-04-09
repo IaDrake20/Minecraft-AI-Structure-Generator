@@ -5,7 +5,7 @@ VisualStudioVersion = 17.9.34607.119
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GUI", "GUI.csproj", "{17736F16-4EAB-417C-B13D-1F3B2879EAE4}"
 EndProject
-Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "NodeConverter", "..\..\..\..\Desktop\minecraft-artifier-js-master\NodeConverter.njsproj", "{7716D904-5D28-4607-9D1F-DD211B34ADBA}"
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "NodeConverter", "..\NodeConverter\NodeConverter.njsproj", "{F8E2AE3F-5F1A-4AAA-A8C3-760E5EF1F852}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,12 +20,12 @@ Global
 		{17736F16-4EAB-417C-B13D-1F3B2879EAE4}.Node Server|Any CPU.Build.0 = Release|Any CPU
 		{17736F16-4EAB-417C-B13D-1F3B2879EAE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17736F16-4EAB-417C-B13D-1F3B2879EAE4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7716D904-5D28-4607-9D1F-DD211B34ADBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7716D904-5D28-4607-9D1F-DD211B34ADBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7716D904-5D28-4607-9D1F-DD211B34ADBA}.Node Server|Any CPU.ActiveCfg = Release|Any CPU
-		{7716D904-5D28-4607-9D1F-DD211B34ADBA}.Node Server|Any CPU.Build.0 = Release|Any CPU
-		{7716D904-5D28-4607-9D1F-DD211B34ADBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7716D904-5D28-4607-9D1F-DD211B34ADBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8E2AE3F-5F1A-4AAA-A8C3-760E5EF1F852}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8E2AE3F-5F1A-4AAA-A8C3-760E5EF1F852}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8E2AE3F-5F1A-4AAA-A8C3-760E5EF1F852}.Node Server|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8E2AE3F-5F1A-4AAA-A8C3-760E5EF1F852}.Node Server|Any CPU.Build.0 = Debug|Any CPU
+		{F8E2AE3F-5F1A-4AAA-A8C3-760E5EF1F852}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8E2AE3F-5F1A-4AAA-A8C3-760E5EF1F852}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
