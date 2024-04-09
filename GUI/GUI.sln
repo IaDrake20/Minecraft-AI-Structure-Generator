@@ -3,24 +3,29 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34607.119
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI", "GUI.csproj", "{17736F16-4EAB-417C-B13D-1F3B2879EAE4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GUI", "GUI.csproj", "{17736F16-4EAB-417C-B13D-1F3B2879EAE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web automation", "..\Web automation\Web automation.csproj", "{3C74A872-017B-41E0-BD81-14A1623154B1}"
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "NodeConverter", "..\..\..\..\Desktop\minecraft-artifier-js-master\NodeConverter.njsproj", "{7716D904-5D28-4607-9D1F-DD211B34ADBA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Node Server|Any CPU = Node Server|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{17736F16-4EAB-417C-B13D-1F3B2879EAE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{17736F16-4EAB-417C-B13D-1F3B2879EAE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17736F16-4EAB-417C-B13D-1F3B2879EAE4}.Node Server|Any CPU.ActiveCfg = Release|Any CPU
+		{17736F16-4EAB-417C-B13D-1F3B2879EAE4}.Node Server|Any CPU.Build.0 = Release|Any CPU
 		{17736F16-4EAB-417C-B13D-1F3B2879EAE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17736F16-4EAB-417C-B13D-1F3B2879EAE4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3C74A872-017B-41E0-BD81-14A1623154B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3C74A872-017B-41E0-BD81-14A1623154B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3C74A872-017B-41E0-BD81-14A1623154B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3C74A872-017B-41E0-BD81-14A1623154B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7716D904-5D28-4607-9D1F-DD211B34ADBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7716D904-5D28-4607-9D1F-DD211B34ADBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7716D904-5D28-4607-9D1F-DD211B34ADBA}.Node Server|Any CPU.ActiveCfg = Release|Any CPU
+		{7716D904-5D28-4607-9D1F-DD211B34ADBA}.Node Server|Any CPU.Build.0 = Release|Any CPU
+		{7716D904-5D28-4607-9D1F-DD211B34ADBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7716D904-5D28-4607-9D1F-DD211B34ADBA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
