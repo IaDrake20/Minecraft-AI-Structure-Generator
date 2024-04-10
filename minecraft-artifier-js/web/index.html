@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Minecraft Art To Block</title>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+        <link rel="icon" type="image/png" href="4132d01edc0f0651ed7b1fd0c040dd8f.png">
+    </head>
+    <body style="display: none;">
+
+        <div class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <div class="box hidden" id="modal-save">
+            123
+        </div>
+        <div class="box hidden" id="modal-howto-command">
+            <iframe width="720" height="405"
+			src="https://www.youtube.com/embed/dQw4w9WgXcQ">
+			</iframe>
+        </div>
+        <div class="box hidden" id="modal-faq">
+            <div class="content">
+                <b>Q: Why my image looks different on small scales?</b>
+                <p>A: Some textures with different colors, (e.g. Terracota, TNT) when scaled to small size, can look not similar to their original size.</p><br>
+                <b>Q: After building in-game, part of my image is missing. Why?</b>
+                <p>A: This can caused by reaching height limit, including blocks, that are not in the current game version or spawning blocks out of your max render distance.</p><br>
+                <b>Q: There are too many pages in command block convert output!</b>
+                <p>A: You can reduce number of commands, if you optimize your image to include more simillar blocks.</p><br>
+                <b>Q: Why there are no 1.13 blocks?</b>
+                <p>A: Right now 1.13 version of WorldEdit is not stable and current .schematic file structure is not compatible with 1.13 blocks. You can read more about it <a href="https://minecraft.gamepedia.com/1.13/Flattening">here.</a></p> 
+            </div>
+        </div>
+        <div class="box hidden" id="modal-controls">
+                <div class="columns">
+                    <div class="column">
+                        <p><b>P</b> - Pencil tool</p>
+                        <p><b>B</b> - Brush tool</p>
+                        <p><b>U</b> - Bucket tool</p>
+                        <p><b>E</b> - Eyedropper tool</p>
+                        <p><b>Z</b> - Zoom tool</p>
+                        <p><b>G</b> - Grab tool</p>
+                        <p><b>O</b> - Toggle original</p>
+                        <p><b>[</b> - Reduce brush size</p>
+                        <p><b>]</b> - Increase brush size</p>
+                    </div>
+                    <div class="column">
+                        <p><b>Arrow keys</b> - Move camera</p>
+                        <p><b>Mouse wheel press</b> - Grab</p>
+                        <p><b>Mouse wheel turn</b> - Change scale</p>
+                        <p><b>Shift + LClick</b> - Draw line from last point</p>
+                        <p><b>Ctrl + LClick</b> - Quick eyedropper</p>
+                        <p><b>Ctrl + Z</b> - Undo</p>
+                        <p><b>Ctrl + Y</b> - Redo</p>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+</div>
+
+        <div class="modal loading-overlay">
+            <div class="modal-background"></div>
+            <div class="modal-content">
+                <div class="box">
+                    Loading...
+                </div>
+            </div>
+        </div>
+
+        <section class="section container start-screen">
+            <div class="dropzone" id="start-dropzone">
+                <div>Drag and drop your image/.schematic file here</div>
+                <div>
+                    <span style="vertical-align: top; line-height: 40px;">or</span>
+                    <label class="file-label" style="display: inline-block">
+                        <input class="file-input" type="file" name="main-image" id="start-file-input">
+                        <span class="file-cta">
+                            <span class="file-icon">
+                                <i class="fas fa-upload"></i>
+                            </span>
+                            <span class="file-label">Choose a file</span>
+                        </span>
+                    </label>
+                </div>
+                <div class="warning is-red center" id="error-start-screen">
+                    <div class="warning-icon"><i class="fas fa-exclamation-triangle fa-2x"></i></div>
+                    <div class="warning-body"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section container settings-screen hidden">
+            <div class="columns is-mobile">
+                <div class="column image-column">
+                    <div class="img-background">
+                        <img class="img-pixelated img-presentation" id="settings-img-presentation">
+                    </div>
+                    <div id="settings-img-sizes"></div>
+                    <div class="size-settings clearfix">
+                        <div class="size-inputs">
+                            <span class="input-width">
+                                <input class="input" id="settings-input-width">
+                            </span><i class="fas fa-link"></i>
+                            <span class="input-height">
+                                <input class="input" id="settings-input-height">
+                            </span> = <span id="settings-equals-blocks"></span>
+                        </div>
+                        <div class="size-checkboxes">
+                            <label class="checkbox">
+                                <input type="checkbox" id="settings-check-crop">
+                                Crop image
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" id="settings-check-ignore-ratio">
+                                Ignore aspect ratio
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="column blocks-column">
+                    <div class="block-groups">
+                        <div class="box box-selected" id="settings-group-all">
+                            <div class="title">All</div>
+                            <div class="subtext">
+                                All blocks
+                            </div>
+                            <input type="radio" name="block-groups" value="all" checked>
+                        </div>
+                        <div class="box" id="settings-group-survival">
+                            <div class="title">Survival</div>
+                            <div class="subtext">
+                                Only blocks from survival mode<br>
+                                (except The End blocks)
+                            </div>
+                            <input type="radio" name="block-groups" value="survival">
+                        </div>
+                        <div class="box" id="settings-group-custom">
+                            <div class="title">Custom</div>
+                            <div class="subtext">
+                                Choose your own blocks
+                            </div>
+                            <input type="radio" name="block-groups" value="custom">
+                        </div>
+                    </div>
+                    <div class="table-blocks-container hidden">
+                        <span></span><input class="input" id="settings-input-filter" placeholder="Filter by name">
+                        <div class="table-blocks-wrapper">
+                            <table class="table" id="settings-table-blocks">
+                                <thead>
+                                    <tr>
+                                        <th><input type="checkbox" id="settings-table-checkbox" checked></th>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                            <div id="settings-table-counter"></div>
+                        </div>
+                    </div>
+                    <div class="checkboxes-include" id="settings-checkboxes-include">
+                        <label class="checkbox">
+                            <input type="checkbox" name="include-falling" checked>
+                            Include falling
+                        </label>
+                        <label class="checkbox">
+                            <input type="checkbox" name="include-transparent">
+                            Include transparent
+                        </label>
+                        <label class="checkbox">
+                            <input type="checkbox" name="include-redstone">
+                            Include redstone activated
+                        </label>
+                        <label class="checkbox">
+                            <input type="checkbox" name="include-luminance">
+                            Include luminance
+                        </label>
+                    </div>
+                    <div style="margin-bottom: 10px; margin-top: -2px;">
+                        <label class="checkbox">
+                            <input type="checkbox" id="settings-ignore-height-limit">
+                            Ignore in-game height limit
+                        </label>
+                    </div>
+                    <div>
+                        <span>Minecraft version:</span>
+                        <div class="select">
+                          <select id="settings-version">
+                            <option value="12">1.12</option>
+                            <option value="11">1.11</option>
+                            <option value="10" >1.10</option>
+                            <option value="9">1.9</option>
+                          </select>
+                        </div>
+                    </div>
+                    <div style="padding: 10px 0px;">
+                        <button class="button is-success" id="settings-submit" style="font-size: 20px;">Convert!</button>
+                        <div class="warning is-red inline" id="error-settings-screen">
+                            <div class="warning-icon"><i class="fas fa-exclamation-triangle fa-2x"></i></div>
+                            <div class="warning-body"></div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+
+        <section class="section container workarea editor-screen hidden">
+            <div class="warning is-red center" id="error-editor-screen" style="right: 20px; position: absolute; z-index: 1;">
+                <div class="warning-icon"><i class="fas fa-exclamation-triangle fa-2x"></i></div>
+                <div class="warning-body"></div>
+            </div>
+            <div class="topbar">
+                <div class="topbar-btn" id="editor-open-btn">Open
+                    <div class="topbar-menu topbar-menu-open hidden">
+                        <label class="file-label">
+                            <input class="file-input" type="file" id="editor-file-input-image">
+                            <span class="file-cta">
+                                <span class="file-label">Open image..</span>
+                            </span>
+                        </label>
+                        <label class="file-label">
+                            <input class="file-input" type="file" id="editor-file-input-data">
+                            <span class="file-cta">
+                                <span class="file-label">Open .schematic..</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                <div class="topbar-btn">Save
+                    <div class="topbar-menu topbar-menu-save hidden">
+                        <div style="display: flex;">
+                            <a class="button is-success" id="editor-save-btn" download="art.schematic">Save as..</a>
+                            <input class="input" type="text" id="editor-save-input">
+                            <span style="margin-left: -5px;">.schematic</span>
+                        </div>
+                        <div style="font-size: 11px; text-align: left; padding-top: 5px; padding-left: 2px;">Schematic files are compatible with WorldEdit plugin.</div>
+                    </div>
+                </div>
+                <div class="topbar-btn">Replace
+                    <div class="topbar-menu topbar-menu-replace hidden">
+                        <div class="topbar-menu-replace-form">
+                            <div class="replace-group">
+                                <img class="img-thumbnail img-pixelated" id="editor-replace-target">
+                                <span>...</span>
+                            </div>
+                            <div class="svg-arrow">
+                                <svg version="1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 307 307"><path d="M239 142L101 5c-6-7-16-7-22 0L68 16c-6 6-6 16 0 22l116 116L68 269c-6 6-6 16 0 22l11 11c6 7 16 7 22 0l138-137c6-7 6-16 0-23z"/></svg>
+                            </div>
+                            <div class="replace-group">
+                                <img class="img-thumbnail img-pixelated" id="editor-replace-replacement">
+                                <span>...</span>
+                            </div>
+                        </div>
+                        <button class="button is-success" id="editor-replace-btn">Replace</button>
+                        <div class="text-info hidden" id="editor-replace-info"></div>
+                    </div>
+                </div>
+                <div class="topbar-btn">Settings
+                    <div class="topbar-menu topbar-menu-settings hidden">
+                        <div class="settings-panel">
+                            <label class="checkbox">
+                                <input type="checkbox" id="editor-settings-rulers" checked>
+                                Show rulers
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" id="editor-settings-grid">
+                                Show grid
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" id="editor-settings-original">
+                                Show original
+                            </label>
+                            <label>
+                                <input type="color" value="#ff4778" id="editor-settings-grid-color">
+                                Grid color
+                            </label>
+                            <label style="margin-top: 5px; line-height: 27px;">
+                                <div class="select is-small">
+                                    <select id="editor-settings-we-direction">
+                                        <option checked value="north">North</option>
+                                        <option value="east">East</option>
+                                        <option value="south">South</option>
+                                        <option value="west">West</option>
+                                    </select>
+                                </div>
+                                WorldEdit spawn direction
+                            </label>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="topbar-btn" id="editor-btn-convert">Convert to commands..</div>
+                <div class="topbar-btn">Help
+                    <div class="topbar-menu topbar-menu-help">
+                        <div class="topbar-menu-item" id="editor-help-faq">
+                            FAQ
+                        </div>
+                        <div class="topbar-menu-item" id="editor-help-controls">
+                            Keyboard/mouse controls
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="columns is-mobile">
+                <div class="column is-three-quarters editor">
+                    <div class="editor-tools">
+                        <label title="Pencil tool (P)">
+                            <input type="radio" name="tool" value="pencil" checked>
+                            <svg version="1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 459 459"><path d="M0 362v97h97l280-283-97-97L1 362zm451-260c11-10 11-25 0-36L393 8a25 25 0 0 0-36 0l-46 46 97 96 43-48z"/></svg>
+                        </label>
+                        <label title="Brush tool (B)">
+                            <input type="radio" name="tool" value="brush">
+                            <svg version="1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M499 46a43 43 0 0 0-60 0L199 275c26 7 48 24 62 48 4 7 8 15 10 23l229-239a43 43 0 0 0-1-61zM177 302h-4c-20 0-40 7-57 19-20 14-27 35-42 53-18 24-46 35-74 43 16 43 76 60 116 61h4c45 0 97-16 119-60 23-49-6-113-62-116z"/></svg>
+                        </label>
+                        <label title="Bucket tool (U)">
+                            <input type="radio" name="tool" value="bucket">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M439 223.4A143.1 143.1 0 0 1 248.2 252a30 30 0 1 1 19-23.4c18.4 11.8 39.8 18 62.1 17.7a112 112 0 0 0 88.3-44.4L315.4 99.8 362.1 53a31.6 31.6 0 0 1 44.6 0 114.4 114.4 0 0 1 10.9 149l21.4 21.5a144.3 144.3 0 0 0-11-191.7c-24-24-63.1-24-87.1 0l-47 46.7-26.1-26.2-108.6 108.6A115.3 115.3 0 0 0 0 267.2v90h30v-90a30 30 0 0 1 47.4-24.6l-11.5 11.5L310 498.3 512 296.4l-73-73zm-340.2-2.2a60 60 0 0 0-44.1-13.9 84.8 84.8 0 0 1 80.8-22.8l-36.7 36.7z"/></svg>
+                        </label>
+                        <label title="Eyedropper tool (E)">
+                            <input type="radio" name="tool" value="eyedropper">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 469.3 469.3"><path d="M469.3 78.6a78.6 78.6 0 0 0-134-55.6l-74 74-8.4-8.5c-4.2-4.2-11-4.2-15.1 0L195 131c-4.1 4.2-4.1 11 0 15.1L209 160 58.3 310.6a53 53 0 0 0-15.6 37.7c0 14.3-4.2 28-12.1 40L1.8 431.3A10.7 10.7 0 0 0 3 445l21.4 21.3a10.6 10.6 0 0 0 13.4 1.3l45.1-30c10.6-7 23-10.8 35.7-10.8 14.7 0 28.8-6.1 38.7-16.7a11804 11804 0 0 1 151.8-149.7l14 14a10.6 10.6 0 0 0 15 0l42.7-42.8c4.1-4.1 4.1-10.9 0-15l-8.5-8.5 74-74a78 78 0 0 0 23-55.4zm-261 220h-77.7L239 190.3 279 230c-17.6 17-42.5 41-70.8 68.6z"/></svg>
+                        </label>
+                        <label title="Zoom tool (Z)">
+                            <input type="radio" name="tool" value="zoom">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 310.42 310.42"><path d="M273.59 214.97c49.1-49.12 49.1-129.03 0-178.14-49.11-49.1-129.02-49.1-178.13 0C53.79 78.5 47.48 140.46 76.5 188.85c0 0 2.08 3.5-.73 6.31l-64.26 64.27c-12.8 12.79-15.84 30.67-4.5 42.02l1.96 1.95c11.34 11.34 29.23 8.3 42.02-4.5l64.12-64.12c2.95-2.95 6.45-.87 6.45-.87 48.39 29.03 110.35 22.72 152.02-18.94zM118.7 191.7c-36.29-36.29-36.29-95.33 0-131.62 36.29-36.29 95.33-36.29 131.62 0 36.29 36.29 36.29 95.33 0 131.62-36.29 36.29-95.33 36.29-131.62 0z"/><path d="M126.75 118.42a13 13 0 0 1-11.97-18.07c17.59-41.55 65.7-61.06 107.26-43.47a13 13 0 0 1-10.13 23.94 55.9 55.9 0 0 0-73.18 29.67 13 13 0 0 1-11.98 7.93z"/></svg>
+                        </label>
+                        <label title="Grab tool (G)">
+                            <input type="radio" name="tool" value="grab">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 59.07 59.07"><path d="M52.85 27.12A2.29 2.29 0 0 0 50.79 26a10 10 0 0 0-5.23 1.72 17.47 17.47 0 0 0-5.3 5.87 2.1 2.1 0 0 1-1.45 1.06v-.43l-.01-1.08V11a4 4 0 0 0-8 0v15.5c0 .28-.23.5-.5.5s-.5-.23-.5-.5V4a4 4 0 0 0-8 0v22.5c0 .28-.23.5-.5.5s-.5-.23-.5-.5v-18a3.5 3.5 0 0 0-7 0v20c0 .28-.23.5-.5.5s-.5-.23-.5-.5V16a3.5 3.5 0 0 0-7.01 0v27.2c.97 13.98 9.54 15.87 17.8 15.87 6.85 0 13-3.4 16.03-8.83l2.7-4.25c3.13-4.91 5.75-9.04 6.14-9.78a12.1 12.1 0 0 1 2.78-3.69c.87-.7 1.4-1.61 1.83-2.4.22-.42.41-1.93-.22-3z"/></svg>
+                        </label>
+                        <div class="brush-size-container" id="editor-brush-container">
+                            <div class="brush-size-thumbnail">
+                                <span class="brush-size-shape" id="editor-brush-shape"></span>
+                            </div>
+                            <span class="brush-size-string" id="editor-brush-string">25 bl.</span><br>
+                            <div class="brush-size-buttons">
+                                <i class="fas fa-minus" id="editor-brush-minus"></i>
+                                <i class="fas fa-plus" id="editor-brush-plus"></i>
+                            </div>
+                        </div>
+                        <div class="editor-eyedrop">
+                            <img class="img-pixelated" id="editor-main-eyedrop">
+                        </div>
+                    </div>
+                    <div class="editor-canvas img-pixelated" id="editor-canvas"></div>
+                </div>
+                <div class="column info-panels" style="background-color: grey">
+                    <div class="info-panels-blocks">
+                        <input class="input is-small" id="editor-input-filter" placeholder="Filter by name">
+                        <div class="info-panels-blocks-img" id="editor-block-list"></div>
+                    </div>
+                    <div class="info-panels-history">
+                        History:
+                        <div class="info-panels-history-container" id="editor-history">
+                            <div class="info-panels-history-action-start info-panels-history-action-current" id="editor-first-action">Open</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="footbar clearfix">
+                <div class="footbar-left" id="editor-footbar-left">...</div>
+                <div class="footbar-right" id="editor-footbar-right"></div>
+            </div>
+            
+        </section>
+
+        <section class="section container convert-screen hidden">
+            <div class="columns is-mobile">
+                <div class="column is-one-quarter form-options">
+                    <div class="form-option">
+                        <span>Convert method:</span>
+                        <div class="select">
+                            <select id="convert-select-method">
+                                <option checked value="commblock" selected>Command block</option>
+                                <option value="mcfunction">.mcfunction file</option>
+                                <option value="raw">Raw commands</option>
+                                <option value="manual">Amounts of blocks</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-option">
+                        <span>Minecraft version:</span>
+                        <div class="select">
+                            <select id="convert-select-version">
+                                <option value="13">1.13</option>
+                                <option checked value="12">1.12</option>
+                                <option value="11">1.11</option>
+                                <option value="10">1.10</option>
+                                <option value="9">1.9</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-option">
+                        <span>Spawn towards:</span>
+                        <div class="select">
+                            <select id="convert-select-facing">
+                                <option checked value="north">North</option>
+                                <option value="east">East</option>
+                                <option value="south">South</option>
+                                <option value="west">West</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="info" id="convert-string-commands" style="margin-bottom: 5px;"></div>
+                    <div class="info">Commands to delete:</div>
+                    <div class="info" id="convert-string-delete"></div>
+                    <div class="hidden" id="convert-notify-changed" style="margin-top: 10px;">Your image was changed. <a id="convert-notify-link" href="%23">Reconvert?</a></div>
+                </div>
+                <div class="column">
+                    <div id="convert-output-commblock">
+                        <div class="control">
+                            <textarea class="textarea" type="text" readonly id="convert-commblock-textarea"></textarea>
+                            <div class="box counter" id="convert-counter-commblock"></div>
+                            <a class="button is-small tooltip" data-tooltip="Copied to clipboard" style="margin-left:5px; vertical-align: super;" href="%23" id="convert-copy-clipboard">Copy to clipboard</a>
+                            <a href="%23" style="margin-top: 20px; float: right;" class="button is-info" id="convert-howto-command">How do I use command blocks?</a>
+                        </div> 
+                    </div>
+                    <div id="convert-output-mcfunction" class="hidden">
+                        <div class="box">
+                            <a class="button is-success" id="convert-btn-mcfunction" download="123.mcfunction">Download as..</a>
+                            <input class="input" id="convert-input-mcfunction">
+                            <span>.mcfunction</span>
+                        </div>
+                    </div>
+                    <div id="convert-output-raw" class="hidden">
+                        <pre id="convert-pre-raw"></pre>
+                        <div class="box counter" id="convert-counter-raw"></div>
+                    </div>
+                    <div id="convert-output-manual" class="hidden">
+                        <table class="table" id="convert-table-manual">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                        <div class="box counter" id="convert-counter-manual"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    <script type="text/javascript" src="index.041fcf09876b541672b5.js"></script></body>
+</html>
