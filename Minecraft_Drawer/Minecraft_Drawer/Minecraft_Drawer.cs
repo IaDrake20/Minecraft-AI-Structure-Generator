@@ -112,12 +112,12 @@ namespace Minecraft_Drawer
                     {
                         for (int j = 0; j < bmp.Width; j++)
                         {
-                            Console.WriteLine("Block placed at ", X, ",", Y, ",", Z);
+                            
                             string cmdTemplate = String.Format("/setblock {0} {1} {2} ", X, Y, Z, "replace");
 
                             int bestColorIndex = approximateColor(bmp.GetPixel(j, i));
                             stdin.WriteLine(cmdTemplate + colorsDictionary.ElementAt(bestColorIndex).Value);
-                            for (int k = 1; k <= 2; k++)
+                          /*  for (int k = 1; k <= 2; k++)
                             {
                                 cmdTemplate = String.Format("/setblock {0} {1} {2} ", X, Y, Z+k, "destroy");
                                 string airBlock = "air";
@@ -127,12 +127,12 @@ namespace Minecraft_Drawer
                                 airBlock = "air";
                                 stdin.WriteLine(cmdTemplate + airBlock);
                                 Thread.Sleep(1);
-                            }
+                            }*/
                             X++;
 
                         }
                         Y++;
-                        Z -= bmp.Width;
+                        X -= bmp.Width;
                     }
                 }
                 else if (userInput.Equals("-"))
@@ -142,7 +142,7 @@ namespace Minecraft_Drawer
                     {
                         for (int j = 0; j < bmp.Width; j++)
                         {
-                            Console.WriteLine("Block placed at ",X,",", Y, ",", Z);
+                            
                             string cmdTemplate = String.Format("/setblock {0} {1} {2} ", X, Y, Z, "replace");
 
                             int bestColorIndex = approximateColor(bmp.GetPixel(j, i));
@@ -261,26 +261,26 @@ namespace Minecraft_Drawer
 
                             Image image = Image.FromFile(imagePath);
                             int height = image.Height;
+                            int width = image.Width;
+                            int maxHeight = 300;
+                            int maxWidth = 300;
 
-                            if (height > 256)
+                            if (height > maxHeight || image.Width > maxWidth)
                             {
-                                int compressionQuality = GetCompressionQuality(height);
-                                ImageCodecInfo jpgEncoder = GetEncoder(ImageFormat.Jpeg);
-                                Encoder myEncoder = Encoder.Quality;
+                                double widthRatio = (double)maxWidth / image.Width;
+                                double heightRatio = (double)maxHeight / height;
+                                double ratio = Math.Min(widthRatio, heightRatio);
 
-                                // Create an EncoderParameters object
-                                EncoderParameters myEncoderParameters = new EncoderParameters(1);
-
-                                // Set the compression level (0-100)
-                                EncoderParameter myEncoderParameter = new EncoderParameter(myEncoder, compressionQuality); 
-                                myEncoderParameters.Param[0] = myEncoderParameter;
-
-                                Bitmap compressedImage = new Bitmap(image.Width, image.Height);
+                                int newWidth = (int)(image.Width * ratio);
+                                int newHeight = (int)(height * ratio);
+                                Console.WriteLine("Original image dimensions: " + width + " x " + height);
+                                Console.WriteLine("Compressed image dimensions: " + newWidth + " x " + newHeight);
+                                Bitmap compressedImage = new Bitmap(newWidth, newHeight);
 
                                 using (Graphics g = Graphics.FromImage(compressedImage))
                                 {
                                     // Draw the compressed image onto the graphics object
-                                    g.DrawImage(image, new Rectangle(0, 0, compressedImage.Width, compressedImage.Height));
+                                    g.DrawImage(image, new Rectangle(0, 0, newWidth, newHeight));
                                 }
                                 image = compressedImage;
                             }
