@@ -147,7 +147,7 @@ namespace Minecraft_Drawer
 
                             int bestColorIndex = approximateColor(bmp.GetPixel(j, i));
                             stdin.WriteLine(cmdTemplate + colorsDictionary.ElementAt(bestColorIndex).Value);
-                            for (int k = 1; k <= 2; k++)
+                           /* for (int k = 1; k <= 2; k++)
                             {
                                 cmdTemplate = String.Format("/setblock {0} {1} {2} ", X + k, Y, Z, "destroy");
                                 string airBlock = "air";
@@ -157,7 +157,7 @@ namespace Minecraft_Drawer
                                 airBlock = "air";
                                 stdin.WriteLine(cmdTemplate + airBlock);
                                 Thread.Sleep(1);
-                            }
+                            }*/
                             Z++;
 
                         }
