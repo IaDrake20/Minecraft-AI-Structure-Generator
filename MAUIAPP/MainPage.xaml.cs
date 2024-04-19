@@ -45,6 +45,10 @@ namespace MAUIAPP
 
         private async void btnPreview_Clicked(object sender, EventArgs e)
         {
+            activityIndicator.IsRunning = true;
+            activityIndicator.IsVisible = true;
+            lblTitle.Text = "Your image will be ready in a few moments!";
+            prevImage.IsVisible = false;
             prompt = promptInput.Text.Trim();
             btnPreview.IsEnabled = false;
             promptInput.IsEnabled = false;
@@ -62,16 +66,21 @@ namespace MAUIAPP
 
             map.Save(filepath, ImageFormat.Png);
             
+
+            activityIndicator.IsRunning = false;
+            activityIndicator.IsVisible= false;            
             prevImage.Source = filepath;
             btnPreview.IsEnabled = true;
             promptInput.IsEnabled = true;
+            prevImage.IsVisible = true;
+            lblTitle.Text = "Export to Minecraft or generate another image!";
 
 
         }
 
         async Task<ImageResult> CallApi()
         {
-            OpenAIAPI api = new OpenAIAPI("");
+            OpenAIAPI api = new OpenAIAPI(" ");
             
             var result = await api.ImageGenerations.CreateImageAsync(new ImageGenerationRequest(prompt, OpenAI_API.Models.Model.DALLE3, ImageSize._1024x1792, "hd", null, ImageResponseFormat.B64_json));
             return result;
