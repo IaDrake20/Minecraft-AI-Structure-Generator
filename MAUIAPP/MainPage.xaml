@@ -7,7 +7,8 @@
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="50" />
-            <RowDefinition Height= "75"/>
+            <RowDefinition Height= "50"/>
+            <RowDefinition />
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
@@ -17,23 +18,25 @@
             <ColumnDefinition />
             <ColumnDefinition />
             <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>        
             <Image
                 x:Name="prevImage"
-                Grid.Row="3"
-                Grid.RowSpan="2"
-                Grid.Column="1"
-                Grid.ColumnSpan="3"
-                Source="dotnet_bot.png"
+                Grid.Row="4"
+                Grid.Column="3"
+                Grid.ColumnSpan="2"
+                Source="mc.png"
                 HeightRequest="350"
                 Aspect="AspectFit"
                 SemanticProperties.Description="Generated Image" />
 
             <Label
                 Grid.Row="0"
-                Grid.RowSpan="2"
+                x:Name ="lblTitle"
                 VerticalTextAlignment="Center"
-                Grid.ColumnSpan="5"
+                Grid.ColumnSpan="8"
                 Text="Enter a prompt for an image!"
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level1" />
@@ -41,15 +44,15 @@
             <Entry 
                 x:Name="promptInput"
                 Grid.Row="1"
-                Grid.Column="1"
-                Grid.ColumnSpan="3"
+                Grid.Column="2"
+                Grid.ColumnSpan="4"
                 Placeholder="Enter a prompt"
                 TextChanged="entry_TextChanged"
                 Completed="entry_Completed" />
 
             <Button
                 Grid.Row="2"
-                Grid.Column="1"
+                Grid.Column="2"
                 x:Name="btnPreview"
                 Text="Preview Below" 
                 SemanticProperties.Hint="Shows a preview of the prompted image below."
@@ -58,11 +61,16 @@
     
             <Button
                 Grid.Row="2"
-                Grid.Column="3"
+                Grid.Column="5"
                 x:Name="btnAddtoMinecraft"
                 Text="Add to Minecraft" 
                 SemanticProperties.Hint="Adds the below image to minecraft."
                 Clicked="btnAddtoMinecraft_Clicked"
                 HorizontalOptions="Fill" />
+
+        <ActivityIndicator x:Name="activityIndicator" IsRunning="False" Color="Blue" 
+                           Grid.Column="3"
+                           Grid.Row="4"
+                           Grid.ColumnSpan="2"/>
     </Grid>
 </ContentPage>

@@ -53,6 +53,8 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Images\Loading.jpg" />
+	  <None Remove="Resources\Images\mc.png" />
+	  <None Remove="Resources\Images\wait.jpg" />
 	</ItemGroup>
 
 	<ItemGroup>
