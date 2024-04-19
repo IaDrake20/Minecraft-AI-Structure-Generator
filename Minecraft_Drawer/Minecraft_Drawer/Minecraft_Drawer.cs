@@ -81,17 +81,20 @@ namespace Minecraft_Drawer
             // Adjust the compression quality based on image height
             if (imageHeight <= 400)
             {
-                return 95; // High quality for small images
+                return 50; // High quality for small images
             }
             else if (imageHeight <= 600)
             {
-                return 75; // Medium quality for medium-sized images
+                return 25; // Medium quality for medium-sized images
             }
             else
             {
-                return 50; // Lower quality for large images
+                return 12; // Lower quality for large images
             }
         }
+       
+
+        
 
         static void renderImage(StreamWriter stdin, Image img, int X, int Y, int Z)
         {
@@ -100,7 +103,7 @@ namespace Minecraft_Drawer
 
             while (incorrectInput)
             {
-                Console.WriteLine("Enter + or - for determining Z axis.");
+                Console.WriteLine("Enter + or - for determining Z axis. (- across Z, + across X)");
                 string userInput = Console.ReadLine();
                 if (userInput.Equals("+"))
                 {
@@ -109,26 +112,27 @@ namespace Minecraft_Drawer
                     {
                         for (int j = 0; j < bmp.Width; j++)
                         {
+                            
                             string cmdTemplate = String.Format("/setblock {0} {1} {2} ", X, Y, Z, "replace");
 
                             int bestColorIndex = approximateColor(bmp.GetPixel(j, i));
                             stdin.WriteLine(cmdTemplate + colorsDictionary.ElementAt(bestColorIndex).Value);
-                            for (int k = 1; k <= 2; k++)
+                          /*  for (int k = 1; k <= 2; k++)
                             {
-                                cmdTemplate = String.Format("/setblock {0} {1} {2} ", X + k, Y, Z, "destroy");
+                                cmdTemplate = String.Format("/setblock {0} {1} {2} ", X, Y, Z+k, "destroy");
                                 string airBlock = "air";
                                 stdin.WriteLine(cmdTemplate + airBlock);
-                                Thread.Sleep(5);
-                                cmdTemplate = String.Format("/setblock {0} {1} {2} ", X - k, Y, Z, "destroy");
+                                
+                                cmdTemplate = String.Format("/setblock {0} {1} {2} ", X, Y, Z-k, "destroy");
                                 airBlock = "air";
                                 stdin.WriteLine(cmdTemplate + airBlock);
-                                Thread.Sleep(5);
-                            }
-                            Z++;
+                                Thread.Sleep(1);
+                            }*/
+                            X++;
 
                         }
                         Y++;
-                        Z -= bmp.Width;
+                        X -= bmp.Width;
                     }
                 }
                 else if (userInput.Equals("-"))
@@ -138,6 +142,7 @@ namespace Minecraft_Drawer
                     {
                         for (int j = 0; j < bmp.Width; j++)
                         {
+                            
                             string cmdTemplate = String.Format("/setblock {0} {1} {2} ", X, Y, Z, "replace");
 
                             int bestColorIndex = approximateColor(bmp.GetPixel(j, i));
@@ -147,11 +152,11 @@ namespace Minecraft_Drawer
                                 cmdTemplate = String.Format("/setblock {0} {1} {2} ", X + k, Y, Z, "destroy");
                                 string airBlock = "air";
                                 stdin.WriteLine(cmdTemplate + airBlock);
-                                Thread.Sleep(5);
+                                
                                 cmdTemplate = String.Format("/setblock {0} {1} {2} ", X - k, Y, Z, "destroy");
                                 airBlock = "air";
                                 stdin.WriteLine(cmdTemplate + airBlock);
-                                Thread.Sleep(5);
+                                Thread.Sleep(1);
                             }
                             Z++;
 
@@ -170,7 +175,6 @@ namespace Minecraft_Drawer
 
         static void Main(string[] args)
         {
-            string myImagePath = "C:\\Users\\iosdr\\Documents\\GitHub\\Minecraft-AI-Structure-Generator\\MAUIAPP\\bin\\Debug\\net8.0-windows10.0.19041.0\\win10-x64\\AppX";
             Console.WriteLine("Starting Minecraft_Drawer application...");
 
             using (Process mcServerProc = new Process())
@@ -193,14 +197,10 @@ namespace Minecraft_Drawer
                     dynamic config = JsonConvert.DeserializeObject(json);
 
                     string serverPath = config["configPath"];
-                    string imgPath = config["imgPath"];
 
                     // path to your minecraft server
                     Console.WriteLine("Server path: " + serverPath);
-                    Console.WriteLine("Img path: "+ myImagePath);
                     mcServerProc.StartInfo.WorkingDirectory = serverPath;
-
-                    //myImagePath = imgPath;
                 }
                 catch (Exception ex)
                 {
@@ -243,7 +243,7 @@ namespace Minecraft_Drawer
                 populateDictionary();
 
                 // renders an image in the game
-                string imagePath = Path.Combine(mcServerProc.StartInfo.WorkingDirectory, myImagePath, "MineCraftImage.png");
+                string imagePath = Path.Combine(mcServerProc.StartInfo.WorkingDirectory, "images", "MineCraftImage.png");
 
                 // keeps the command prompt alive until you type 'stop'
                 // otherwise, this will close and the server keeps running
@@ -261,25 +261,26 @@ namespace Minecraft_Drawer
 
                             Image image = Image.FromFile(imagePath);
                             int height = image.Height;
+                            int width = image.Width;
+                            int maxHeight = 300;
+                            int maxWidth = 300;
 
-                            if (height > 256)
+                            if (height > maxHeight || image.Width > maxWidth)
                             {
-                                ImageCodecInfo jpgEncoder = GetEncoder(ImageFormat.Jpeg);
-                                Encoder myEncoder = Encoder.Quality;
+                                double widthRatio = (double)maxWidth / image.Width;
+                                double heightRatio = (double)maxHeight / height;
+                                double ratio = Math.Min(widthRatio, heightRatio);
 
-                                // Create an EncoderParameters object
-                                EncoderParameters myEncoderParameters = new EncoderParameters(1);
-
-                                // Set the compression level (0-100)
-                                EncoderParameter myEncoderParameter = new EncoderParameter(myEncoder, 50L); // Adjust the quality level as needed
-                                myEncoderParameters.Param[0] = myEncoderParameter;
-
-                                Bitmap compressedImage = new Bitmap(image.Width, image.Height);
+                                int newWidth = (int)(image.Width * ratio);
+                                int newHeight = (int)(height * ratio);
+                                Console.WriteLine("Original image dimensions: " + width + " x " + height);
+                                Console.WriteLine("Compressed image dimensions: " + newWidth + " x " + newHeight);
+                                Bitmap compressedImage = new Bitmap(newWidth, newHeight);
 
                                 using (Graphics g = Graphics.FromImage(compressedImage))
                                 {
                                     // Draw the compressed image onto the graphics object
-                                    g.DrawImage(image, new Rectangle(0, 0, compressedImage.Width, compressedImage.Height));
+                                    g.DrawImage(image, new Rectangle(0, 0, newWidth, newHeight));
                                 }
                                 image = compressedImage;
                             }
