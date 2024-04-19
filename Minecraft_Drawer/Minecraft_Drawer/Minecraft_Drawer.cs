@@ -92,64 +92,7 @@ namespace Minecraft_Drawer
                 return 12; // Lower quality for large images
             }
         }
-        static bool AreChunksLoaded()
-        {
-            // Implement logic to check if chunks are loaded, either by querying server APIs
-            // or by monitoring server log messages
 
-            // For example, you can run a command to check the server status
-            using (Process process = new Process())
-            {
-                string configPath = @"serverpath.json";
-                string json = File.ReadAllText(configPath);
-                dynamic config = JsonConvert.DeserializeObject(json);
-
-                string serverPath = config["configPath"];
-                process.StartInfo.FileName = serverPath;
-
-                process.StartInfo.Arguments = "-Xmx2g -Xms1024M -jar server.jar nogui";
-                process.StartInfo.RedirectStandardOutput = true;
-                process.StartInfo.UseShellExecute = false;
-                process.Start();
-
-                // Read the output of the command
-                string output = process.StandardOutput.ReadToEnd();
-                process.WaitForExit();
-
-                // Parse the server status to determine if chunks are loaded
-                if (output.Contains("Chunks loaded: 100%"))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-
-        static void RenderImageWithChunkDelay(StreamWriter stdin, Image img, int X, int Y, int Z)
-        {
-            // Wait for chunks to load with a timeout
-            int timeout = 300; // 5 minutes timeout
-            DateTime startTime = DateTime.Now;
-
-            while (!AreChunksLoaded())
-            {
-                if (DateTime.Now - startTime >= TimeSpan.FromSeconds(timeout))
-                {
-                    Console.WriteLine("Timeout: Chunks did not load within the specified time.");
-                    return;
-                }
-
-                Console.WriteLine("Waiting for chunks to load...");
-                Thread.Sleep(5000); // Wait for 5 seconds before checking again
-            }
-
-            // Chunks are loaded, proceed to render the image
-            Console.WriteLine("Chunks loaded. Rendering image...");
-            renderImage(stdin, img, X, Y, Z);
-        }
 
         static void renderImage(StreamWriter stdin, Image img, int X, int Y, int Z)
         {
@@ -172,7 +115,7 @@ namespace Minecraft_Drawer
 
                             int bestColorIndex = approximateColor(bmp.GetPixel(j, i));
                             stdin.WriteLine(cmdTemplate + colorsDictionary.ElementAt(bestColorIndex).Value);
-                            for (int k = 1; k <= 2; k++)
+                            /*for (int k = 1; k <= 2; k++)
                             {
                                 cmdTemplate = String.Format("/setblock {0} {1} {2} ", X, Y, Z+k, "destroy");
                                 string airBlock = "air";
@@ -182,12 +125,12 @@ namespace Minecraft_Drawer
                                 airBlock = "air";
                                 stdin.WriteLine(cmdTemplate + airBlock);
                                 Thread.Sleep(1);
-                            }
+                            }*/
                             X++;
 
                         }
                         Y++;
-                        Z -= bmp.Width;
+                        X -= bmp.Width;
                     }
                 }
                 else if (userInput.Equals("-"))
@@ -202,7 +145,7 @@ namespace Minecraft_Drawer
 
                             int bestColorIndex = approximateColor(bmp.GetPixel(j, i));
                             stdin.WriteLine(cmdTemplate + colorsDictionary.ElementAt(bestColorIndex).Value);
-                            for (int k = 1; k <= 2; k++)
+                            /*for (int k = 1; k <= 2; k++)
                             {
                                 cmdTemplate = String.Format("/setblock {0} {1} {2} ", X + k, Y, Z, "destroy");
                                 string airBlock = "air";
@@ -212,7 +155,7 @@ namespace Minecraft_Drawer
                                 airBlock = "air";
                                 stdin.WriteLine(cmdTemplate + airBlock);
                                 Thread.Sleep(1);
-                            }
+                            }*/
                             Z++;
 
                         }
@@ -378,12 +321,12 @@ namespace Minecraft_Drawer
                                 Console.WriteLine("Invalid input. Please enter a valid integer.");
                             }
                             userInput = Console.ReadLine();
-                            RenderImageWithChunkDelay(mcServerProc.StandardInput, image, X, Y, Z); // Move renderImage call inside the try block
+                            renderImage(mcServerProc.StandardInput, image, X, Y, Z); // Move renderImage call inside the try block
 
 
                             Console.WriteLine("Rendering image in the game...");
 
-                            RenderImageWithChunkDelay(mcServerProc.StandardInput, image, X, Y, Z);
+                            renderImage(mcServerProc.StandardInput, image, X, Y, Z);
                         }
                         catch (FileNotFoundException ex)
                         {
