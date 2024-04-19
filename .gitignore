@@ -408,6 +408,6 @@ whitelist.json
 ops.json
 
 #Minecraft server files
-*.mca
+**/*.mca
 Minecraft_Drawer/world/poi/r.-1.-1.mca
 session.lock
