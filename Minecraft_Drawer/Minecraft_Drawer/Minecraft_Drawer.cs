@@ -81,15 +81,15 @@ namespace Minecraft_Drawer
             // Adjust the compression quality based on image height
             if (imageHeight <= 400)
             {
-                return 95; // High quality for small images
+                return 50; // High quality for small images
             }
             else if (imageHeight <= 600)
             {
-                return 75; // Medium quality for medium-sized images
+                return 25; // Medium quality for medium-sized images
             }
             else
             {
-                return 50; // Lower quality for large images
+                return 12; // Lower quality for large images
             }
         }
 
@@ -100,7 +100,7 @@ namespace Minecraft_Drawer
 
             while (incorrectInput)
             {
-                Console.WriteLine("Enter + or - for determining Z axis.");
+                Console.WriteLine("Enter + or - for determining Z axis. (- across Z, + across X)");
                 string userInput = Console.ReadLine();
                 if (userInput.Equals("+"))
                 {
@@ -115,16 +115,16 @@ namespace Minecraft_Drawer
                             stdin.WriteLine(cmdTemplate + colorsDictionary.ElementAt(bestColorIndex).Value);
                             for (int k = 1; k <= 2; k++)
                             {
-                                cmdTemplate = String.Format("/setblock {0} {1} {2} ", X + k, Y, Z, "destroy");
+                                cmdTemplate = String.Format("/setblock {0} {1} {2} ", X, Y, Z+k, "destroy");
                                 string airBlock = "air";
                                 stdin.WriteLine(cmdTemplate + airBlock);
-                                Thread.Sleep(5);
-                                cmdTemplate = String.Format("/setblock {0} {1} {2} ", X - k, Y, Z, "destroy");
+                                
+                                cmdTemplate = String.Format("/setblock {0} {1} {2} ", X, Y, Z-k, "destroy");
                                 airBlock = "air";
                                 stdin.WriteLine(cmdTemplate + airBlock);
-                                Thread.Sleep(5);
+                                Thread.Sleep(1);
                             }
-                            Z++;
+                            X++;
 
                         }
                         Y++;
@@ -147,11 +147,11 @@ namespace Minecraft_Drawer
                                 cmdTemplate = String.Format("/setblock {0} {1} {2} ", X + k, Y, Z, "destroy");
                                 string airBlock = "air";
                                 stdin.WriteLine(cmdTemplate + airBlock);
-                                Thread.Sleep(5);
+                                
                                 cmdTemplate = String.Format("/setblock {0} {1} {2} ", X - k, Y, Z, "destroy");
                                 airBlock = "air";
                                 stdin.WriteLine(cmdTemplate + airBlock);
-                                Thread.Sleep(5);
+                                Thread.Sleep(1);
                             }
                             Z++;
 
@@ -238,7 +238,7 @@ namespace Minecraft_Drawer
                 populateDictionary();
 
                 // renders an image in the game
-                string imagePath = Path.Combine(mcServerProc.StartInfo.WorkingDirectory, "images", "ed.jpg");
+                string imagePath = Path.Combine(mcServerProc.StartInfo.WorkingDirectory, "images", "MineCraftImage.png");
 
                 // keeps the command prompt alive until you type 'stop'
                 // otherwise, this will close and the server keeps running
@@ -259,6 +259,7 @@ namespace Minecraft_Drawer
 
                             if (height > 256)
                             {
+                                int compressionQuality = GetCompressionQuality(height);
                                 ImageCodecInfo jpgEncoder = GetEncoder(ImageFormat.Jpeg);
                                 Encoder myEncoder = Encoder.Quality;
 
@@ -266,7 +267,7 @@ namespace Minecraft_Drawer
                                 EncoderParameters myEncoderParameters = new EncoderParameters(1);
 
                                 // Set the compression level (0-100)
-                                EncoderParameter myEncoderParameter = new EncoderParameter(myEncoder, 50L); // Adjust the quality level as needed
+                                EncoderParameter myEncoderParameter = new EncoderParameter(myEncoder, compressionQuality); 
                                 myEncoderParameters.Param[0] = myEncoderParameter;
 
                                 Bitmap compressedImage = new Bitmap(image.Width, image.Height);
