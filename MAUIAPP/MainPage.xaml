@@ -19,14 +19,15 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>        
             <Image
+                x:Name="prevImage"
                 Grid.Row="3"
                 Grid.RowSpan="2"
                 Grid.Column="1"
                 Grid.ColumnSpan="3"
                 Source="dotnet_bot.png"
-                HeightRequest="185"
+                HeightRequest="350"
                 Aspect="AspectFit"
-                SemanticProperties.Description="dot net bot in a race car number eight" />
+                SemanticProperties.Description="Generated Image" />
 
             <Label
                 Grid.Row="0"
@@ -37,7 +38,8 @@
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level1" />
 
-            <Entry x:Name="entry"
+            <Entry 
+                x:Name="promptInput"
                 Grid.Row="1"
                 Grid.Column="1"
                 Grid.ColumnSpan="3"
