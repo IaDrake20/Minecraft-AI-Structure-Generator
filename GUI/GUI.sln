@@ -9,6 +9,8 @@ Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "NodeConverter", "..\NodeCon
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MAUIAPP", "..\MAUIAPP\MAUIAPP.csproj", "{164609B2-83E9-45EC-8F8E-8651105D4F80}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minecraft_Drawer", "..\Minecraft_Drawer\Minecraft_Drawer\Minecraft_Drawer.csproj", "{9B8C2725-8FF7-4FB4-AE1C-E8A217697EAD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{164609B2-83E9-45EC-8F8E-8651105D4F80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{164609B2-83E9-45EC-8F8E-8651105D4F80}.Release|Any CPU.Build.0 = Release|Any CPU
 		{164609B2-83E9-45EC-8F8E-8651105D4F80}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{9B8C2725-8FF7-4FB4-AE1C-E8A217697EAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B8C2725-8FF7-4FB4-AE1C-E8A217697EAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B8C2725-8FF7-4FB4-AE1C-E8A217697EAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B8C2725-8FF7-4FB4-AE1C-E8A217697EAD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

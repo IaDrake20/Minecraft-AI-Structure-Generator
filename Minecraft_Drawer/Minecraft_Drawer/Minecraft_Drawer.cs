@@ -96,35 +96,75 @@ namespace Minecraft_Drawer
         static void renderImage(StreamWriter stdin, Image img, int X, int Y, int Z)
         {
             Bitmap bmp = (Bitmap)img;
-            
-            
-            
-            
+            bool incorrectInput = true;
 
-            for (int i = bmp.Height - 1; i > 0; i--)
+            while (incorrectInput)
             {
-                for (int j = 0; j < bmp.Width; j++)
+                Console.WriteLine("Enter + or - for determining Z axis.");
+                string userInput = Console.ReadLine();
+                if (userInput.Equals("+"))
                 {
-                    string cmdTemplate = String.Format("/setblock {0} {1} {2} ", X, Y, Z, "replace");
+                    incorrectInput = false;
+                    for (int i = bmp.Height - 1; i > 0; i--)
+                    {
+                        for (int j = 0; j < bmp.Width; j++)
+                        {
+                            string cmdTemplate = String.Format("/setblock {0} {1} {2} ", X, Y, Z, "replace");
 
-                    int bestColorIndex = approximateColor(bmp.GetPixel(j, i));
-                    stdin.WriteLine(cmdTemplate + colorsDictionary.ElementAt(bestColorIndex).Value);
-                    for (int k = 1; k <= 2; k++) { 
-                    cmdTemplate = String.Format("/setblock {0} {1} {2} ", X, Y, Z + k, "destroy");
-                        string airBlock = "air";
-                        stdin.WriteLine(cmdTemplate + airBlock);
-                        Thread.Sleep(5);
-                    cmdTemplate = String.Format("/setblock {0} {1} {2} ", X, Y, Z - k, "destroy");
-                         airBlock = "air";
-                        stdin.WriteLine(cmdTemplate + airBlock);
-                        Thread.Sleep(5);
+                            int bestColorIndex = approximateColor(bmp.GetPixel(j, i));
+                            stdin.WriteLine(cmdTemplate + colorsDictionary.ElementAt(bestColorIndex).Value);
+                            for (int k = 1; k <= 2; k++)
+                            {
+                                cmdTemplate = String.Format("/setblock {0} {1} {2} ", X + k, Y, Z, "destroy");
+                                string airBlock = "air";
+                                stdin.WriteLine(cmdTemplate + airBlock);
+                                Thread.Sleep(5);
+                                cmdTemplate = String.Format("/setblock {0} {1} {2} ", X - k, Y, Z, "destroy");
+                                airBlock = "air";
+                                stdin.WriteLine(cmdTemplate + airBlock);
+                                Thread.Sleep(5);
+                            }
+                            Z++;
+
+                        }
+                        Y++;
+                        Z -= bmp.Width;
                     }
-                    X++;
-
                 }
-                Y++;
-                X -= bmp.Width;
+                else if (userInput.Equals("-"))
+                {
+                    incorrectInput = false;
+                    for (int i = bmp.Height - 1; i > 0; i--)
+                    {
+                        for (int j = 0; j < bmp.Width; j++)
+                        {
+                            string cmdTemplate = String.Format("/setblock {0} {1} {2} ", X, Y, Z, "replace");
 
+                            int bestColorIndex = approximateColor(bmp.GetPixel(j, i));
+                            stdin.WriteLine(cmdTemplate + colorsDictionary.ElementAt(bestColorIndex).Value);
+                            for (int k = 1; k <= 2; k++)
+                            {
+                                cmdTemplate = String.Format("/setblock {0} {1} {2} ", X + k, Y, Z, "destroy");
+                                string airBlock = "air";
+                                stdin.WriteLine(cmdTemplate + airBlock);
+                                Thread.Sleep(5);
+                                cmdTemplate = String.Format("/setblock {0} {1} {2} ", X - k, Y, Z, "destroy");
+                                airBlock = "air";
+                                stdin.WriteLine(cmdTemplate + airBlock);
+                                Thread.Sleep(5);
+                            }
+                            Z++;
+
+                        }
+                        Y++;
+                        Z -= bmp.Width;
+                    }
+                }
+                else
+                {
+                    incorrectInput = true;
+                    Console.WriteLine("Please enter a +/-");
+                }
             }
         }
 
@@ -278,8 +318,7 @@ namespace Minecraft_Drawer
                             }
                             userInput = Console.ReadLine();
                             renderImage(mcServerProc.StandardInput, image, X, Y, Z); // Move renderImage call inside the try block
-                        
-                            
+
 
                             Console.WriteLine("Rendering image in the game...");
 
