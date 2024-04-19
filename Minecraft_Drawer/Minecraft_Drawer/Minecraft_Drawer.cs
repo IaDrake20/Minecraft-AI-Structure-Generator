@@ -138,6 +138,7 @@ namespace Minecraft_Drawer
                     {
                         for (int j = 0; j < bmp.Width; j++)
                         {
+                            Console.WriteLine("Block placed at ",X,",", Y, ",", Z);
                             string cmdTemplate = String.Format("/setblock {0} {1} {2} ", X, Y, Z, "replace");
 
                             int bestColorIndex = approximateColor(bmp.GetPixel(j, i));
