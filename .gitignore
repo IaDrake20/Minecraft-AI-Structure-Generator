@@ -399,3 +399,10 @@ FodyWeavers.xsd
 
 node_modules
 web
+
+banned-ips.json
+banned-players.json
+usercache.json
+version.json
+whitelist.json
+ops.json

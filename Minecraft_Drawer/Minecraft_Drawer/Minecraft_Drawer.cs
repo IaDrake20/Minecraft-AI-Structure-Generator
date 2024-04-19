@@ -1,5 +1,4 @@
 ﻿using System;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -120,9 +119,13 @@ namespace Minecraft_Drawer
 
         static void Main(string[] args)
         {
+            Console.WriteLine("Starting Minecraft_Drawer application...");
+
             using (Process mcServerProc = new Process())
             {
-                string configPath = "serverpath.json";
+                Console.WriteLine("Creating process for Minecraft server...");
+
+                string configPath = @"serverpath.json";
 
                 if (!File.Exists(configPath))
                 {
@@ -132,6 +135,8 @@ namespace Minecraft_Drawer
 
                 try
                 {
+                    Console.WriteLine("Reading configuration file...");
+
                     string json = File.ReadAllText(configPath);
                     dynamic config = JsonConvert.DeserializeObject(json);
 
@@ -143,15 +148,14 @@ namespace Minecraft_Drawer
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Error reading configuration file: " + ex.Message);
-
+                    Console.WriteLine("Error reading configuration file: " + ex.ToString());
+                    return;
                 }
+
+                Console.WriteLine("Preparing to start Minecraft server process...");
+
                 // path to cmd.exe
                 mcServerProc.StartInfo.FileName = Path.Combine(Environment.SystemDirectory, "cmd.exe");
-
-                
-                
-               
 
                 // bunch of settings, to allow redirection of stdin / stdout / stderr
                 mcServerProc.StartInfo.UseShellExecute = false;
@@ -164,14 +168,18 @@ namespace Minecraft_Drawer
                 mcServerProc.OutputDataReceived += (sender, e) => { Console.WriteLine(e.Data); };
                 mcServerProc.ErrorDataReceived += (sender, e) => { Console.WriteLine(e.Data); };
 
+                Console.WriteLine("Starting Minecraft server process...");
+
                 mcServerProc.Start();
 
-                // starts reading form stdout & stderr
+                // starts reading from stdout & stderr
                 mcServerProc.BeginOutputReadLine();
                 mcServerProc.BeginErrorReadLine();
 
-                // writes to the command prompt (cm d.exe) the line to execute the jar file (start the server)
+                // writes to the command prompt (cmd.exe) the line to execute the jar file (start the server)
                 mcServerProc.StandardInput.WriteLine("java -Xmx1024M -Xms1024M -jar server.jar nogui");
+
+                Console.WriteLine("Waiting for server to start (15 seconds)...");
 
                 Thread.Sleep(15000); // waiting for server to start
 
@@ -180,28 +188,24 @@ namespace Minecraft_Drawer
 
                 // renders an image in the game
                 string imagePath = Path.Combine(mcServerProc.StartInfo.WorkingDirectory, "images", "ed.jpg");
-               /* try
-                {
-                     
-                    Image image = Image.FromFile(imagePath);
-                    renderImage(mcServerProc.StandardInput, image); // Move renderImage call inside the try block
-                }
-                catch (FileNotFoundException ex)
-                {
-                    // Handle the exception (e.g., log the error, display an error message)
-                    Console.WriteLine("File not found: " + ex.Message);
-                }
-                */
+
                 // keeps the command prompt alive until you type 'stop'
-                // otherwise this will close and the server keeps running
+                // otherwise, this will close and the server keeps running
                 while (true)
                 {
-                    if (Console.ReadLine().Contains("retry")) { 
+                    Console.WriteLine("Waiting for user input...");
+
+                    string userInput = Console.ReadLine();
+
+                    if (userInput.Contains("retry"))
+                    {
                         try
                         {
+                            Console.WriteLine("Reading image file...");
 
-                        Image image = Image.FromFile(imagePath);
+                            Image image = Image.FromFile(imagePath);
                             int height = image.Height;
+
                             if (height > 256)
                             {
                                 ImageCodecInfo jpgEncoder = GetEncoder(ImageFormat.Jpeg);
@@ -223,21 +227,28 @@ namespace Minecraft_Drawer
                                 }
                                 image = compressedImage;
                             }
-                                renderImage(mcServerProc.StandardInput, image); // Move renderImage call inside the try block
-                         }
+                            renderImage(mcServerProc.StandardInput, image); // Move renderImage call inside the try block
+                        
+                            
+
+                            Console.WriteLine("Rendering image in the game...");
+
+                            renderImage(mcServerProc.StandardInput, image);
+                        }
                         catch (FileNotFoundException ex)
                         {
-                        // Handle the exception (e.g., log the error, display an error message)
-                        Console.WriteLine("File not found: " + ex.Message);
+                            Console.WriteLine("File not found: " + ex.Message);
                         }
                     }
-                    if (Console.ReadLine().Contains("stop"))
+                    else if (userInput.Contains("stop"))
+                    {
+                        Console.WriteLine("Stopping the server...");
+                        mcServerProc.StandardInput.WriteLine("stop"); // stops the server
                         break;
+                    }
                 }
 
-                mcServerProc.StandardInput.WriteLine("stop"); // stops the server
-
-                Thread.Sleep(3000);
+                Console.WriteLine("Exiting Minecraft_Drawer application...");
             }
         }
     }
