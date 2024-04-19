@@ -197,6 +197,7 @@ namespace Minecraft_Drawer
 
                     // path to your minecraft server
                     Console.WriteLine("Server path: " + serverPath);
+                    Console.WriteLine("Img path: "+ imgPath);
                     mcServerProc.StartInfo.WorkingDirectory = serverPath;
 
                     myImagePath = imgPath;

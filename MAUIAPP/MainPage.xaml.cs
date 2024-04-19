@@ -21,6 +21,7 @@ namespace MAUIAPP
     public partial class MainPage : ContentPage
     {
         Process process = new Process();
+        string directory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         public String prompt;
         public MainPage()
@@ -44,12 +45,18 @@ namespace MAUIAPP
 
         private void btnAddtoMinecraft_Clicked(object sender, EventArgs e)
         {
-            process.StartInfo.FileName = "C:\\Users\\iosdr\\Documents\\GitHub\\Minecraft-AI-Structure-Generator\\Minecraft_Drawer\\Minecraft_Drawer\\bin\\Debug\\Minecraft_Drawer.exe";
+            //process.StartInfo.FileName = "C:\\Users\\iosdr\\Documents\\GitHub\\Minecraft-AI-Structure-Generator\\Minecraft_Drawer\\Minecraft_Drawer\\bin\\Debug\\Minecraft_Drawer.exe";
             //process.StartInfo.Arguments = "-n";
-            process.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
+            process.StartInfo.WindowStyle = ProcessWindowStyle.Maximized;
+            //process.Start("C:\\Users\\iosdr\\Documents\\GitHub\\Minecraft-AI-Structure-Generator\\Minecraft_Drawer\\Minecraft_Drawer\\bin\\Debug\\Minecraft_Drawer.exe");
+            
+            //System.Diagnostics.Process.Start("");
+            process = new Process();
+            process.StartInfo.FileName = ("C:\\Users\\iosdr\\Documents\\GitHub\\Minecraft-AI-Structure-Generator\\Minecraft_Drawer\\Minecraft_Drawer\\bin\\Debug\\Minecraft_Drawer.exe");
+            process.StartInfo.WorkingDirectory = "C:\\Users\\iosdr\\Documents\\GitHub\\Minecraft-AI-Structure-Generator\\Minecraft_Drawer\\Minecraft_Drawer\\bin\\Debug";
+            process.StartInfo.UseShellExecute = true;
             process.Start();
             process.WaitForExit();// Waits here for the process to exit.
-            //System.Diagnostics.Process.Start("");
         }
 
         private async void btnPreview_Clicked(object sender, EventArgs e)
@@ -62,7 +69,7 @@ namespace MAUIAPP
             Bitmap map = Base64StringToBitmap(response.Data[0].Base64Data);
 
             string filename = "MineCraftImage.png";
-            string directory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            directory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             Console.WriteLine(directory.ToString());
             string filepath = Path.Combine(directory, filename);
             
