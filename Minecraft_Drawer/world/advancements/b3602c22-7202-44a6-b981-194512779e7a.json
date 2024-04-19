@@ -7,6 +7,7 @@
   },
   "minecraft:adventure/adventuring_time": {
     "criteria": {
+      "minecraft:ice_spikes": "2024-04-19 03:52:08 -0400",
       "minecraft:frozen_river": "2024-04-19 03:01:41 -0400",
       "minecraft:forest": "2024-04-19 03:01:58 -0400",
       "minecraft:taiga": "2024-04-19 03:01:53 -0400",
@@ -67,6 +68,12 @@
     },
     "done": true
   },
+  "minecraft:husbandry/root": {
+    "criteria": {
+      "consumed_item": "2024-04-19 03:03:37 -0400"
+    },
+    "done": true
+  },
   "minecraft:recipes/transportation/mangrove_boat": {
     "criteria": {
       "in_water": "2024-04-19 03:30:46 -0400"
@@ -94,12 +101,6 @@
   "minecraft:recipes/transportation/spruce_boat": {
     "criteria": {
       "in_water": "2024-04-19 03:30:46 -0400"
-    },
-    "done": true
-  },
-  "minecraft:husbandry/root": {
-    "criteria": {
-      "consumed_item": "2024-04-19 03:03:37 -0400"
     },
     "done": true
   },
