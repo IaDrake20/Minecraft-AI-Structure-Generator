@@ -406,3 +406,6 @@ usercache.json
 version.json
 whitelist.json
 ops.json
+
+#Minecraft server files
+*.mca
