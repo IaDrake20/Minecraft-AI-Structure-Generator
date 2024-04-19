@@ -8,9 +8,6 @@ EndProject
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "NodeConverter", "..\NodeConverter\NodeConverter.njsproj", "{F8E2AE3F-5F1A-4AAA-A8C3-760E5EF1F852}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MAUIAPP", "..\MAUIAPP\MAUIAPP.csproj", "{164609B2-83E9-45EC-8F8E-8651105D4F80}"
-	ProjectSection(ProjectDependencies) = postProject
-		{9B8C2725-8FF7-4FB4-AE1C-E8A217697EAD} = {9B8C2725-8FF7-4FB4-AE1C-E8A217697EAD}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minecraft_Drawer", "..\Minecraft_Drawer\Minecraft_Drawer\Minecraft_Drawer.csproj", "{9B8C2725-8FF7-4FB4-AE1C-E8A217697EAD}"
 EndProject

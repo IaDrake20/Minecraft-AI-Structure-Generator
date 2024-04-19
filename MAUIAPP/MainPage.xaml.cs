@@ -11,8 +11,6 @@ using System.Diagnostics;
 using System.Reflection.Emit;
 using Windows.System;
 using Microsoft.Maui.Storage;
-using System.Diagnostics;
-
 
 
 namespace MAUIAPP
@@ -20,15 +18,13 @@ namespace MAUIAPP
     
     public partial class MainPage : ContentPage
     {
-        Process process = new Process();
-
         public String prompt;
         public MainPage()
         {
             prompt = "";
             InitializeComponent();
             btnPreview.IsEnabled = false;
-            btnAddtoMinecraft.IsEnabled = true;
+            btnAddtoMinecraft.IsEnabled = false;
         }
 
         private void entry_TextChanged(object sender, TextChangedEventArgs e)
@@ -44,12 +40,7 @@ namespace MAUIAPP
 
         private void btnAddtoMinecraft_Clicked(object sender, EventArgs e)
         {
-            process.StartInfo.FileName = "C:\\Users\\iosdr\\Documents\\GitHub\\Minecraft-AI-Structure-Generator\\Minecraft_Drawer\\Minecraft_Drawer\\bin\\Debug\\Minecraft_Drawer.exe";
-            //process.StartInfo.Arguments = "-n";
-            process.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
-            process.Start();
-            process.WaitForExit();// Waits here for the process to exit.
-            //System.Diagnostics.Process.Start("");
+
         }
 
         private async void btnPreview_Clicked(object sender, EventArgs e)
@@ -63,7 +54,6 @@ namespace MAUIAPP
 
             string filename = "MineCraftImage.png";
             string directory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            Console.WriteLine(directory.ToString());
             string filepath = Path.Combine(directory, filename);
             
             
