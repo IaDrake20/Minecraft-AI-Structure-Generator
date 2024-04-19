@@ -7,6 +7,8 @@ using System.Linq;
 using System.Threading;
 using System.Drawing.Imaging;
 using Newtonsoft.Json;
+using static System.Net.Mime.MediaTypeNames;
+using Image = System.Drawing.Image;
 
 
 namespace Minecraft_Drawer
@@ -91,14 +93,13 @@ namespace Minecraft_Drawer
             }
         }
 
-        static void renderImage(StreamWriter stdin, Image img)
+        static void renderImage(StreamWriter stdin, Image img, int X, int Y, int Z)
         {
             Bitmap bmp = (Bitmap)img;
             
-            // coordinates - from where to start rendering the image
-            int X = 5;
-            int Y = 84;
-            int Z = 7;
+            
+            
+            
 
             for (int i = bmp.Height - 1; i > 0; i--)
             {
@@ -108,6 +109,16 @@ namespace Minecraft_Drawer
 
                     int bestColorIndex = approximateColor(bmp.GetPixel(j, i));
                     stdin.WriteLine(cmdTemplate + colorsDictionary.ElementAt(bestColorIndex).Value);
+                    for (int k = 1; k <= 2; k++) { 
+                    cmdTemplate = String.Format("/setblock {0} {1} {2} ", X, Y, Z + k, "destroy");
+                        string airBlock = "air";
+                        stdin.WriteLine(cmdTemplate + airBlock);
+                        Thread.Sleep(5);
+                    cmdTemplate = String.Format("/setblock {0} {1} {2} ", X, Y, Z - k, "destroy");
+                         airBlock = "air";
+                        stdin.WriteLine(cmdTemplate + airBlock);
+                        Thread.Sleep(5);
+                    }
                     X++;
 
                 }
@@ -177,7 +188,7 @@ namespace Minecraft_Drawer
                 mcServerProc.BeginErrorReadLine();
 
                 // writes to the command prompt (cmd.exe) the line to execute the jar file (start the server)
-                mcServerProc.StandardInput.WriteLine("java -Xmx1024M -Xms1024M -jar server.jar nogui");
+                mcServerProc.StandardInput.WriteLine("java -Xmx2g -Xms1024M -jar server.jar nogui");
 
                 Console.WriteLine("Waiting for server to start (15 seconds)...");
 
@@ -227,13 +238,52 @@ namespace Minecraft_Drawer
                                 }
                                 image = compressedImage;
                             }
-                            renderImage(mcServerProc.StandardInput, image); // Move renderImage call inside the try block
+                            Console.WriteLine("Enter X coordinate");
+                            userInput = Console.ReadLine();
+                            int X;
+                            if (int.TryParse(userInput, out X))
+                            {
+                                // Parsing successful, number variable now holds the parsed integer value
+                                Console.WriteLine("Parsed number: " + X);
+                            }
+                            else
+                            {
+                                // Parsing failed, userInput is not a valid integer
+                                Console.WriteLine("Invalid input. Please enter a valid integer.");
+                            }
+                            Console.WriteLine("Enter Y coordinate");
+                            userInput = Console.ReadLine();
+                            int Y;
+                            if (int.TryParse(userInput, out Y))
+                            {
+                                // Parsing successful, number variable now holds the parsed integer value
+                                Console.WriteLine("Parsed number: " + Y);
+                            }
+                            else
+                            {
+                                // Parsing failed, userInput is not a valid integer
+                                Console.WriteLine("Invalid input. Please enter a valid integer.");
+                            }
+                            Console.WriteLine("Enter Z coordinate");
+                            int Z;
+                            if (int.TryParse(userInput, out Z))
+                            {
+                                // Parsing successful, number variable now holds the parsed integer value
+                                Console.WriteLine("Parsed number: " + Z);
+                            }
+                            else
+                            {
+                                // Parsing failed, userInput is not a valid integer
+                                Console.WriteLine("Invalid input. Please enter a valid integer.");
+                            }
+                            userInput = Console.ReadLine();
+                            renderImage(mcServerProc.StandardInput, image, X, Y, Z); // Move renderImage call inside the try block
                         
                             
 
                             Console.WriteLine("Rendering image in the game...");
 
-                            renderImage(mcServerProc.StandardInput, image);
+                            renderImage(mcServerProc.StandardInput, image, X, Y, Z);
                         }
                         catch (FileNotFoundException ex)
                         {
