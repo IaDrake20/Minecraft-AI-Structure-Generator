@@ -101,10 +101,12 @@ namespace Minecraft_Drawer
             Bitmap bmp = (Bitmap)img;
             bool incorrectInput = true;
 
+
+            Console.WriteLine("Enter + or - for determining Z axis. (- across Z, + across X)");
+            string userInput = Console.ReadLine();
+
             while (incorrectInput)
             {
-                Console.WriteLine("Enter + or - for determining Z axis. (- across Z, + across X)");
-                string userInput = Console.ReadLine();
                 if (userInput.Equals("+"))
                 {
                     incorrectInput = false;
@@ -291,7 +293,7 @@ namespace Minecraft_Drawer
                             if (int.TryParse(userInput, out X))
                             {
                                 // Parsing successful, number variable now holds the parsed integer value
-                                Console.WriteLine("Parsed number: " + X);
+                                //Console.WriteLine("Parsed number: " + X);
                             }
                             else
                             {
@@ -304,7 +306,7 @@ namespace Minecraft_Drawer
                             if (int.TryParse(userInput, out Y))
                             {
                                 // Parsing successful, number variable now holds the parsed integer value
-                                Console.WriteLine("Parsed number: " + Y);
+                                //Console.WriteLine("Parsed number: " + Y);
                             }
                             else
                             {
@@ -312,19 +314,19 @@ namespace Minecraft_Drawer
                                 Console.WriteLine("Invalid input. Please enter a valid integer.");
                             }
                             Console.WriteLine("Enter Z coordinate");
+                            userInput = Console.ReadLine();
                             int Z;
                             if (int.TryParse(userInput, out Z))
                             {
                                 // Parsing successful, number variable now holds the parsed integer value
-                                Console.WriteLine("Parsed number: " + Z);
+                                //Console.WriteLine("Parsed number: " + Z);
                             }
                             else
                             {
                                 // Parsing failed, userInput is not a valid integer
                                 Console.WriteLine("Invalid input. Please enter a valid integer.");
                             }
-                            userInput = Console.ReadLine();
-                            renderImage(mcServerProc.StandardInput, image, X, Y, Z); // Move renderImage call inside the try block
+                            //renderImage(mcServerProc.StandardInput, image, X, Y, Z); // Move renderImage call inside the try block
 
 
                             Console.WriteLine("Rendering image in the game...");
