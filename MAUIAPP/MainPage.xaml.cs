@@ -71,7 +71,7 @@ namespace MAUIAPP
 
         async Task<ImageResult> CallApi()
         {
-            OpenAIAPI api = new OpenAIAPI("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");
+            OpenAIAPI api = new OpenAIAPI("");
             
             var result = await api.ImageGenerations.CreateImageAsync(new ImageGenerationRequest(prompt, OpenAI_API.Models.Model.DALLE3, ImageSize._1024x1792, "hd", null, ImageResponseFormat.B64_json));
             return result;
