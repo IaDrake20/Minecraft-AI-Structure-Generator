@@ -170,6 +170,7 @@ namespace Minecraft_Drawer
 
         static void Main(string[] args)
         {
+            string myImagePath = "";
             Console.WriteLine("Starting Minecraft_Drawer application...");
 
             using (Process mcServerProc = new Process())
@@ -192,10 +193,13 @@ namespace Minecraft_Drawer
                     dynamic config = JsonConvert.DeserializeObject(json);
 
                     string serverPath = config["configPath"];
+                    string imgPath = config["imgPath"];
 
                     // path to your minecraft server
                     Console.WriteLine("Server path: " + serverPath);
                     mcServerProc.StartInfo.WorkingDirectory = serverPath;
+
+                    myImagePath = imgPath;
                 }
                 catch (Exception ex)
                 {
@@ -238,7 +242,7 @@ namespace Minecraft_Drawer
                 populateDictionary();
 
                 // renders an image in the game
-                string imagePath = Path.Combine(mcServerProc.StartInfo.WorkingDirectory, "images", "ed.jpg");
+                string imagePath = Path.Combine(mcServerProc.StartInfo.WorkingDirectory, myImagePath, "MineCraftImage.png");
 
                 // keeps the command prompt alive until you type 'stop'
                 // otherwise, this will close and the server keeps running
