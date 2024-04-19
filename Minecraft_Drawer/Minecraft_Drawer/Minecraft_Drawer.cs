@@ -170,7 +170,7 @@ namespace Minecraft_Drawer
 
         static void Main(string[] args)
         {
-            string myImagePath = "";
+            string myImagePath = "C:\\Users\\iosdr\\Documents\\GitHub\\Minecraft-AI-Structure-Generator\\MAUIAPP\\bin\\Debug\\net8.0-windows10.0.19041.0\\win10-x64\\AppX";
             Console.WriteLine("Starting Minecraft_Drawer application...");
 
             using (Process mcServerProc = new Process())
@@ -197,10 +197,10 @@ namespace Minecraft_Drawer
 
                     // path to your minecraft server
                     Console.WriteLine("Server path: " + serverPath);
-                    Console.WriteLine("Img path: "+ imgPath);
+                    Console.WriteLine("Img path: "+ myImagePath);
                     mcServerProc.StartInfo.WorkingDirectory = serverPath;
 
-                    myImagePath = imgPath;
+                    //myImagePath = imgPath;
                 }
                 catch (Exception ex)
                 {
