@@ -3,33 +3,64 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MAUIAPP.MainPage">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Padding="30,0"
-            Spacing="25">
+    <Grid RowSpacing="10">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="50" />
+            <RowDefinition Height= "75"/>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>        
             <Image
+                Grid.Row="3"
+                Grid.RowSpan="2"
+                Grid.Column="1"
+                Grid.ColumnSpan="3"
                 Source="dotnet_bot.png"
                 HeightRequest="185"
                 Aspect="AspectFit"
                 SemanticProperties.Description="dot net bot in a race car number eight" />
 
             <Label
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                VerticalTextAlignment="Center"
+                Grid.ColumnSpan="5"
                 Text="Enter a prompt for an image!"
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level1" />
 
             <Entry x:Name="entry"
+                Grid.Row="1"
+                Grid.Column="1"
+                Grid.ColumnSpan="3"
                 Placeholder="Enter a prompt"
                 TextChanged="entry_TextChanged"
                 Completed="entry_Completed" />
 
             <Button
-                x:Name="CounterBtn"
-                Text="Click me" 
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
+                Grid.Row="2"
+                Grid.Column="1"
+                x:Name="btnPreview"
+                Text="Preview Below" 
+                SemanticProperties.Hint="Shows a preview of the prompted image below."
+                Clicked="btnPreview_Clicked"
                 HorizontalOptions="Fill" />
-        </VerticalStackLayout>
-    </ScrollView>
-
+    
+            <Button
+                Grid.Row="2"
+                Grid.Column="3"
+                x:Name="btnAddtoMinecraft"
+                Text="Add to Minecraft" 
+                SemanticProperties.Hint="Adds the below image to minecraft."
+                Clicked="btnAddtoMinecraft_Clicked"
+                HorizontalOptions="Fill" />
+    </Grid>
 </ContentPage>

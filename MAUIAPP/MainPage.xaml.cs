@@ -9,24 +9,22 @@
             InitializeComponent();
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
-        {
-            count++;
-
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
-        }
-
         private void entry_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
 
         private void entry_Completed(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAddtoMinecraft_Clicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnPreview_Clicked(object sender, EventArgs e)
         {
 
         }
