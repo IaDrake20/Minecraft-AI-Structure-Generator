@@ -36,6 +36,25 @@ namespace Minecraft_Drawer
             colorsDictionary.Add(Color.FromArgb(64, 89, 28), "green_wool");
             colorsDictionary.Add(Color.FromArgb(171, 47, 42), "red_wool");
             colorsDictionary.Add(Color.FromArgb(14, 14, 14), "black_wool");
+<<<<<<< Updated upstream
+=======
+
+            //concrete
+            colorsDictionary.Add(Color.FromArgb(99, 31, 154), "purple_concrete");
+            colorsDictionary.Add(Color.FromArgb(84, 28, 124), "black_concrete");
+            colorsDictionary.Add(Color.FromArgb(39, 44, 140), "blue_concrete");
+            colorsDictionary.Add(Color.FromArgb(68, 91, 28), "green_concrete");
+            colorsDictionary.Add(Color.FromArgb(242, 177, 22), "yellow_concrete");
+            colorsDictionary.Add(Color.FromArgb(139, 27, 27), "red_concrete");
+            colorsDictionary.Add(Color.FromArgb(219, 92, 4), "orange_concrete");
+            colorsDictionary.Add(Color.FromArgb(172, 52, 164), "magenta_concrete");
+            colorsDictionary.Add(Color.FromArgb(36, 140, 204), "light_blue_concrete");
+            colorsDictionary.Add(Color.FromArgb(93, 167, 24, 255), "lime_concrete");
+            colorsDictionary.Add(Color.FromArgb(164, 172, 172), "pink_concrete");
+            colorsDictionary.Add(Color.FromArgb(124, 124, 255), "light_gray_concrete");
+            colorsDictionary.Add(Color.FromArgb(164, 172, 172), "cyan_concrete");
+            colorsDictionary.Add(Color.FromArgb(75, 44, 27), "brown_concrete");
+>>>>>>> Stashed changes
         }
 
         // gets the closest available color (decides what block color should be used for a pixel)
