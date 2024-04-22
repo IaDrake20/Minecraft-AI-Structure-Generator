@@ -20,6 +20,7 @@ namespace Minecraft_Drawer
 
         static void populateDictionary()
         {
+            //wool
             colorsDictionary.Add(Color.FromArgb(238, 238, 238), "white_wool");
             colorsDictionary.Add(Color.FromArgb(235, 131, 60), "orange_wool");
             colorsDictionary.Add(Color.FromArgb(184, 56, 195), "magenta_wool");
@@ -36,6 +37,16 @@ namespace Minecraft_Drawer
             colorsDictionary.Add(Color.FromArgb(64, 89, 28), "green_wool");
             colorsDictionary.Add(Color.FromArgb(171, 47, 42), "red_wool");
             colorsDictionary.Add(Color.FromArgb(14, 14, 14), "black_wool");
+
+            //concrete
+            colorsDictionary.Add(Color.FromArgb(99, 31, 154), "purple_concrete");
+            colorsDictionary.Add(Color.FromArgb(84, 28, 124), "black_concrete");
+            colorsDictionary.Add(Color.FromArgb(39, 44, 140), "blue_concrete");
+            colorsDictionary.Add(Color.FromArgb(68, 91, 28), "green_concrete");
+            colorsDictionary.Add(Color.FromArgb(242, 177, 22), "yellow_concrete");
+            colorsDictionary.Add(Color.FromArgb(139, 27, 27), "red_concrete");
+            colorsDictionary.Add(Color.FromArgb(219, 92, 4), "orange_concrete");
+            colorsDictionary.Add(Color.FromArgb(164, 172, 172), "white_concrete");
         }
 
         // gets the closest available color (decides what block color should be used for a pixel)
