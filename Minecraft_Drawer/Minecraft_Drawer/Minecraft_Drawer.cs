@@ -15,11 +15,12 @@ namespace Minecraft_Drawer
 {
     class Minecraft_Drawer
     {
-        
+
         static Dictionary<Color, string> colorsDictionary = new Dictionary<Color, string>();
 
         static void populateDictionary()
         {
+            //wool
             colorsDictionary.Add(Color.FromArgb(238, 238, 238), "white_wool");
             colorsDictionary.Add(Color.FromArgb(235, 131, 60), "orange_wool");
             colorsDictionary.Add(Color.FromArgb(184, 56, 195), "magenta_wool");
@@ -36,6 +37,16 @@ namespace Minecraft_Drawer
             colorsDictionary.Add(Color.FromArgb(64, 89, 28), "green_wool");
             colorsDictionary.Add(Color.FromArgb(171, 47, 42), "red_wool");
             colorsDictionary.Add(Color.FromArgb(14, 14, 14), "black_wool");
+
+            //concrete
+            colorsDictionary.Add(Color.FromArgb(99, 31, 154), "purple_concrete");
+            colorsDictionary.Add(Color.FromArgb(84, 28, 124), "black_concrete");
+            colorsDictionary.Add(Color.FromArgb(39, 44, 140), "blue_concrete");
+            colorsDictionary.Add(Color.FromArgb(68, 91, 28), "green_concrete");
+            colorsDictionary.Add(Color.FromArgb(242, 177, 22), "yellow_concrete");
+            colorsDictionary.Add(Color.FromArgb(139, 27, 27), "red_concrete");
+            colorsDictionary.Add(Color.FromArgb(219, 92, 4), "orange_concrete");
+            colorsDictionary.Add(Color.FromArgb(164, 172, 172), "white_concrete");
         }
 
         // gets the closest available color (decides what block color should be used for a pixel)
@@ -92,19 +103,21 @@ namespace Minecraft_Drawer
                 return 12; // Lower quality for large images
             }
         }
-       
 
-        
+
+
 
         static void renderImage(StreamWriter stdin, Image img, int X, int Y, int Z)
         {
             Bitmap bmp = (Bitmap)img;
             bool incorrectInput = true;
 
+
+            Console.WriteLine("Enter + or - for determining Z axis. (- across Z, + across X)");
+            string userInput = Console.ReadLine();
+
             while (incorrectInput)
             {
-                Console.WriteLine("Enter + or - for determining Z axis. (- across Z, + across X)");
-                string userInput = Console.ReadLine();
                 if (userInput.Equals("+"))
                 {
                     incorrectInput = false;
@@ -112,22 +125,22 @@ namespace Minecraft_Drawer
                     {
                         for (int j = 0; j < bmp.Width; j++)
                         {
-                            
+
                             string cmdTemplate = String.Format("/setblock {0} {1} {2} ", X, Y, Z, "replace");
 
                             int bestColorIndex = approximateColor(bmp.GetPixel(j, i));
                             stdin.WriteLine(cmdTemplate + colorsDictionary.ElementAt(bestColorIndex).Value);
-                          /*  for (int k = 1; k <= 2; k++)
-                            {
-                                cmdTemplate = String.Format("/setblock {0} {1} {2} ", X, Y, Z+k, "destroy");
-                                string airBlock = "air";
-                                stdin.WriteLine(cmdTemplate + airBlock);
-                                
-                                cmdTemplate = String.Format("/setblock {0} {1} {2} ", X, Y, Z-k, "destroy");
-                                airBlock = "air";
-                                stdin.WriteLine(cmdTemplate + airBlock);
-                                Thread.Sleep(1);
-                            }*/
+                            /*  for (int k = 1; k <= 2; k++)
+                              {
+                                  cmdTemplate = String.Format("/setblock {0} {1} {2} ", X, Y, Z+k, "destroy");
+                                  string airBlock = "air";
+                                  stdin.WriteLine(cmdTemplate + airBlock);
+
+                                  cmdTemplate = String.Format("/setblock {0} {1} {2} ", X, Y, Z-k, "destroy");
+                                  airBlock = "air";
+                                  stdin.WriteLine(cmdTemplate + airBlock);
+                                  Thread.Sleep(1);
+                              }*/
                             X++;
 
                         }
@@ -142,22 +155,22 @@ namespace Minecraft_Drawer
                     {
                         for (int j = 0; j < bmp.Width; j++)
                         {
-                            
+
                             string cmdTemplate = String.Format("/setblock {0} {1} {2} ", X, Y, Z, "replace");
 
                             int bestColorIndex = approximateColor(bmp.GetPixel(j, i));
                             stdin.WriteLine(cmdTemplate + colorsDictionary.ElementAt(bestColorIndex).Value);
-                           /* for (int k = 1; k <= 2; k++)
-                            {
-                                cmdTemplate = String.Format("/setblock {0} {1} {2} ", X + k, Y, Z, "destroy");
-                                string airBlock = "air";
-                                stdin.WriteLine(cmdTemplate + airBlock);
-                                
-                                cmdTemplate = String.Format("/setblock {0} {1} {2} ", X - k, Y, Z, "destroy");
-                                airBlock = "air";
-                                stdin.WriteLine(cmdTemplate + airBlock);
-                                Thread.Sleep(1);
-                            }*/
+                            /* for (int k = 1; k <= 2; k++)
+                             {
+                                 cmdTemplate = String.Format("/setblock {0} {1} {2} ", X + k, Y, Z, "destroy");
+                                 string airBlock = "air";
+                                 stdin.WriteLine(cmdTemplate + airBlock);
+
+                                 cmdTemplate = String.Format("/setblock {0} {1} {2} ", X - k, Y, Z, "destroy");
+                                 airBlock = "air";
+                                 stdin.WriteLine(cmdTemplate + airBlock);
+                                 Thread.Sleep(1);
+                             }*/
                             Z++;
 
                         }
@@ -172,9 +185,62 @@ namespace Minecraft_Drawer
                 }
             }
         }
+        static int GetX()
+        {
+            Console.WriteLine("Enter X coordinate");
+            string userInput = Console.ReadLine();
+            int X;
+            if (int.TryParse(userInput, out X))
+            {
+                // Parsing successful, number variable now holds the parsed integer value
+                //Console.WriteLine("Parsed number: " + X);
+            }
+            else
+            {
+                // Parsing failed, userInput is not a valid integer
+                Console.WriteLine("Invalid input. Please enter a valid integer.");
+            }
+            return X;
+        }
 
+        static int GetY()
+        {
+            Console.WriteLine("Enter Y coordinate");
+            string userInput = Console.ReadLine();
+            int Y;
+            if (int.TryParse(userInput, out Y))
+            {
+                // Parsing successful, number variable now holds the parsed integer value
+                //Console.WriteLine("Parsed number: " + X);
+            }
+            else
+            {
+                // Parsing failed, userInput is not a valid integer
+                Console.WriteLine("Invalid input. Please enter a valid integer.");
+            }
+            return Y;
+        }
+
+        static int GetZ()
+        {
+            Console.WriteLine("Enter Z coordinate");
+            string userInput = Console.ReadLine();
+            int Z;
+            if (int.TryParse(userInput, out Z))
+            {
+                // Parsing successful, number variable now holds the parsed integer value
+                //Console.WriteLine("Parsed number: " + X);
+            }
+            else
+            {
+                // Parsing failed, userInput is not a valid integer
+                Console.WriteLine("Invalid input. Please enter a valid integer.");
+            }
+            return Z;
+        }
         static void Main(string[] args)
         {
+            string myImagePath = "C:\\Users\\iosdr\\Documents\\GitHub\\Minecraft-AI-Structure-Generator\\MAUIAPP\\bin\\Debug\\net8.0-windows10.0.19041.0\\win10-x64\\AppX";
             Console.WriteLine("Starting Minecraft_Drawer application...");
 
             using (Process mcServerProc = new Process())
@@ -243,7 +309,7 @@ namespace Minecraft_Drawer
                 populateDictionary();
 
                 // renders an image in the game
-                string imagePath = Path.Combine(mcServerProc.StartInfo.WorkingDirectory, "images", "MineCraftImage.png");
+                string imagePath = Path.Combine(mcServerProc.StartInfo.WorkingDirectory, myImagePath, "MineCraftImage.png");
 
                 // keeps the command prompt alive until you type 'stop'
                 // otherwise, this will close and the server keeps running
@@ -284,46 +350,24 @@ namespace Minecraft_Drawer
                                 }
                                 image = compressedImage;
                             }
-                            Console.WriteLine("Enter X coordinate");
-                            userInput = Console.ReadLine();
-                            int X;
-                            if (int.TryParse(userInput, out X))
-                            {
-                                // Parsing successful, number variable now holds the parsed integer value
-                                Console.WriteLine("Parsed number: " + X);
-                            }
-                            else
-                            {
-                                // Parsing failed, userInput is not a valid integer
-                                Console.WriteLine("Invalid input. Please enter a valid integer.");
-                            }
-                            Console.WriteLine("Enter Y coordinate");
-                            userInput = Console.ReadLine();
-                            int Y;
-                            if (int.TryParse(userInput, out Y))
-                            {
-                                // Parsing successful, number variable now holds the parsed integer value
-                                Console.WriteLine("Parsed number: " + Y);
-                            }
-                            else
-                            {
-                                // Parsing failed, userInput is not a valid integer
-                                Console.WriteLine("Invalid input. Please enter a valid integer.");
-                            }
-                            Console.WriteLine("Enter Z coordinate");
-                            int Z;
-                            if (int.TryParse(userInput, out Z))
-                            {
-                                // Parsing successful, number variable now holds the parsed integer value
-                                Console.WriteLine("Parsed number: " + Z);
-                            }
-                            else
-                            {
-                                // Parsing failed, userInput is not a valid integer
-                                Console.WriteLine("Invalid input. Please enter a valid integer.");
-                            }
-                            userInput = Console.ReadLine();
-                            renderImage(mcServerProc.StandardInput, image, X, Y, Z); // Move renderImage call inside the try block
+
+
+
+                            /*Previous enter commands were here
+                             */
+
+                            int X = GetX();
+
+
+                            int Y = GetY();
+
+                            int Z = GetZ();
+
+
+
+
+
+                            //renderImage(mcServerProc.StandardInput, image, X, Y, Z); // Move renderImage call inside the try block
 
 
                             Console.WriteLine("Rendering image in the game...");
