@@ -11,7 +11,7 @@ using System.Diagnostics;
 using System.Reflection.Emit;
 using Windows.System;
 using Microsoft.Maui.Storage;
-using System.Diagnostics;
+
 
 
 
@@ -98,7 +98,7 @@ namespace MAUIAPP
         async Task<ImageResult> CallApi()
         {
             OpenAIAPI api = new OpenAIAPI("");
-            
+            //sk-proj-JzSN7WJ2gjhQWO0ECtSdT3BlbkFJfxhIldr18NrUvlu14ypm\r\n
             var result = await api.ImageGenerations.CreateImageAsync(new ImageGenerationRequest(prompt, OpenAI_API.Models.Model.DALLE3, ImageSize._1024x1792, "hd", null, ImageResponseFormat.B64_json));
             return result;
         }

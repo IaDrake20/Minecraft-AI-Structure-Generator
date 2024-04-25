@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Drawing.Imaging;
 using Newtonsoft.Json;
+using System.Reflection;
 using static System.Net.Mime.MediaTypeNames;
 using Image = System.Drawing.Image;
 
@@ -225,14 +226,16 @@ namespace Minecraft_Drawer
         }
         static void Main(string[] args)
         {
-            string myImagePath = "C:\\Users\\iosdr\\Documents\\GitHub\\Minecraft-AI-Structure-Generator\\MAUIAPP\\bin\\Debug\\net8.0-windows10.0.19041.0\\win10-x64\\AppX";
+            //string myImagePath = "C:\\Users\\iosdr\\Documents\\GitHub\\Minecraft-AI-Structure-Generator\\MAUIAPP\\bin\\Debug\\net8.0-windows10.0.19041.0\\win10-x64\\AppX";
+            string myImagePath = "C:\\Users\\zenpj\\Documents\\GitHub\\Minecraft-AI-Structure-Generator\\MAUIAPP\\bin\\Debug\\net8.0-windows10.0.19041.0\\win10-x64\\AppX";
             Console.WriteLine("Starting Minecraft_Drawer application...");
 
             using (Process mcServerProc = new Process())
             {
                 Console.WriteLine("Creating process for Minecraft server...");
 
-                string configPath = @"serverpath.json";
+                string exeDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+                string configPath = Path.Combine(exeDirectory, "serverpath.json");
 
                 if (!File.Exists(configPath))
                 {
@@ -243,7 +246,7 @@ namespace Minecraft_Drawer
                 try
                 {
                     Console.WriteLine("Reading configuration file...");
-
+                    
                     string json = File.ReadAllText(configPath);
                     dynamic config = JsonConvert.DeserializeObject(json);
 
