@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MAUIAPP.Coords">
+    <Grid RowSpacing="10">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition Height="50"/>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Label Text="Enter the build coordinates:" Grid.Row="1" Grid.RowSpan="1" Grid.Column="2" Grid.ColumnSpan="5"
+               HorizontalTextAlignment="Center"
+               FontSize="35"/>
+        <Entry Placeholder="X" Grid.Row="2" Grid.RowSpan="1" Grid.Column="2" Grid.ColumnSpan="1"/>
+        <Entry Placeholder="Y" Grid.Row="2" Grid.RowSpan="1" Grid.Column="4" Grid.ColumnSpan="1"/>
+        <Entry Placeholder="Z" Grid.Row="2" Grid.RowSpan="1" Grid.Column="6" Grid.ColumnSpan="1"/>
+        <Button Text="Submit" Grid.Row="4" Grid.RowSpan="1" Grid.Column="3" Grid.ColumnSpan="3"/>
+        <Button Text ="Quit" Grid.Row="0" Grid.RowSpan="1" Grid.Column="7" Grid.ColumnSpan="1"/>
+    </Grid>
+</ContentPage>

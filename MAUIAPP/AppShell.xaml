@@ -8,7 +8,7 @@
     Title="Minecraft AI Structure Generator">
 
     <ShellContent
-        ContentTemplate="{DataTemplate local:MainPage}"
+        ContentTemplate="{DataTemplate local:Coords}"
         Route="MainPage" />
 
 </Shell>
