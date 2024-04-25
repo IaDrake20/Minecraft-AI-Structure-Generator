@@ -218,6 +218,11 @@ namespace Minecraft_Drawer
             }
             return Z;
         }
+        static void getStop(Process mcServerProc)
+        {
+            Console.WriteLine("Stopping the server...");
+            mcServerProc.StandardInput.WriteLine("stop"); // stops the server
+        }
         static void Main(string[] args)
         {
             string myImagePath = "C:\\Users\\iosdr\\Documents\\GitHub\\Minecraft-AI-Structure-Generator\\MAUIAPP\\bin\\Debug\\net8.0-windows10.0.19041.0\\win10-x64\\AppX";
@@ -361,8 +366,7 @@ namespace Minecraft_Drawer
                     }
                     else if (userInput.Contains("stop"))
                     {
-                        Console.WriteLine("Stopping the server...");
-                        mcServerProc.StandardInput.WriteLine("stop"); // stops the server
+                        getStop(mcServerProc);
                         break;
                     }
                 }
