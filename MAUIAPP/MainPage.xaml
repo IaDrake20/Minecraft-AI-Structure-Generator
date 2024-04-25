@@ -55,6 +55,7 @@
                 Grid.Column="2"
                 x:Name="btnPreview"
                 Text="Preview Below" 
+                FontAttributes="Bold"
                 SemanticProperties.Hint="Shows a preview of the prompted image below."
                 Clicked="btnPreview_Clicked"
                 HorizontalOptions="Fill" />
@@ -64,13 +65,14 @@
                 Grid.Column="5"
                 x:Name="btnAddtoMinecraft"
                 Text="Add to Minecraft" 
+                FontAttributes="Bold"
                 SemanticProperties.Hint="Adds the below image to minecraft."
                 Clicked="btnAddtoMinecraft_Clicked"
                 HorizontalOptions="Fill" />
 
         <ActivityIndicator x:Name="activityIndicator" IsRunning="False" Color="Blue" 
-                           Grid.Column="3"
-                           Grid.Row="4"
-                           Grid.ColumnSpan="2"/>
+                Grid.Column="3"
+                Grid.Row="4"
+                Grid.ColumnSpan="2"/>
     </Grid>
 </ContentPage>

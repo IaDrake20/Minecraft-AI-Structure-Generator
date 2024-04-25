@@ -11,6 +11,8 @@ using System.Diagnostics;
 using System.Reflection.Emit;
 using Windows.System;
 using Microsoft.Maui.Storage;
+using System.Diagnostics;
+using Plugin.Maui.Audio;
 
 
 
@@ -62,6 +64,8 @@ namespace MAUIAPP
 
         private async void btnPreview_Clicked(object sender, EventArgs e)
         {
+            AudioPlayerViewModel playerViewModel = new AudioPlayerViewModel();
+            playerViewModel.PlayClickAudio();
             activityIndicator.IsRunning = true;
             activityIndicator.IsVisible = true;
             lblTitle.Text = "Your image will be ready in a few moments!";
@@ -88,6 +92,7 @@ namespace MAUIAPP
             activityIndicator.IsRunning = false;
             activityIndicator.IsVisible= false;            
             prevImage.Source = filepath;
+            playerViewModel.StopAudio();
             btnPreview.IsEnabled = true;
             promptInput.IsEnabled = true;
             prevImage.IsVisible = true;
@@ -95,6 +100,7 @@ namespace MAUIAPP
 
 
         }
+
 
         async Task<ImageResult> CallApi()
         {
@@ -119,6 +125,21 @@ namespace MAUIAPP
 
             return bmpReturn;
         }
-    }
 
+        public class AudioPlayerViewModel
+        {
+            private IAudioPlayer audioPlayer;
+
+            public async void PlayClickAudio()
+            {
+                audioPlayer = AudioManager.Current.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("Resources/Sounds/jeopardy-themelq.mp3"));
+                audioPlayer.Play();
+            }
+
+            public void StopAudio()
+            {
+                audioPlayer?.Stop();
+            }
+        }
+    }
 }

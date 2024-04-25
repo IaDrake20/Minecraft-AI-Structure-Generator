@@ -52,9 +52,22 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiImage Remove="Resources\Images\say3.ogg" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Remove="Resources\Images\Loading.jpg" />
 	  <None Remove="Resources\Images\mc.png" />
+	  <None Remove="Resources\Images\say3.ogg" />
 	  <None Remove="Resources\Images\wait.jpg" />
+	  <None Remove="Resources\Sounds\click.ogg" />
+	  <None Remove="Resources\Sounds\jeopardy-themelq.mp3" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Resources\Sounds\click.ogg" />
+	  <Content Include="Resources\Sounds\jeopardy-themelq.mp3" />
+	  <Content Include="Resources\Sounds\say3.ogg" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -63,6 +76,7 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="OpenAI" Version="1.11.0" />
+		<PackageReference Include="Plugin.Maui.Audio" Version="2.1.0" />
 		<PackageReference Include="System.Drawing.Common" Version="8.0.4" />
 	</ItemGroup>
 
