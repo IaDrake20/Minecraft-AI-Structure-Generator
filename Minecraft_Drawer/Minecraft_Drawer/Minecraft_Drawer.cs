@@ -226,8 +226,8 @@ namespace Minecraft_Drawer
         }
         static void Main(string[] args)
         {
-            //string myImagePath = "C:\\Users\\iosdr\\Documents\\GitHub\\Minecraft-AI-Structure-Generator\\MAUIAPP\\bin\\Debug\\net8.0-windows10.0.19041.0\\win10-x64\\AppX";
-            string myImagePath = "C:\\Users\\zenpj\\Documents\\GitHub\\Minecraft-AI-Structure-Generator\\MAUIAPP\\bin\\Debug\\net8.0-windows10.0.19041.0\\win10-x64\\AppX";
+            
+            //string myImagePath = "C:\\Users\\zenpj\\Documents\\GitHub\\Minecraft-AI-Structure-Generator\\MAUIAPP\\bin\\Debug\\net8.0-windows10.0.19041.0\\win10-x64\\AppX";
             Console.WriteLine("Starting Minecraft_Drawer application...");
 
             using (Process mcServerProc = new Process())
@@ -251,7 +251,7 @@ namespace Minecraft_Drawer
                     dynamic config = JsonConvert.DeserializeObject(json);
 
                     string serverPath = config["configPath"];
-
+                    
                     // path to your minecraft server
                     Console.WriteLine("Server path: " + serverPath);
                     mcServerProc.StartInfo.WorkingDirectory = serverPath;
@@ -297,8 +297,14 @@ namespace Minecraft_Drawer
                 populateDictionary();
 
                 // renders an image in the game
-                string imagePath = Path.Combine(mcServerProc.StartInfo.WorkingDirectory, myImagePath, "MineCraftImage.png");
-
+               
+                
+                    string jso= File.ReadAllText(configPath);
+                    dynamic confi = JsonConvert.DeserializeObject(jso);
+                string imgPath = confi["imagePath"];
+                string imagePath = Path.Combine(mcServerProc.StartInfo.WorkingDirectory, imgPath, "MineCraftImage.png");
+                
+                
                 // keeps the command prompt alive until you type 'stop'
                 // otherwise, this will close and the server keeps running
                 while (true)
