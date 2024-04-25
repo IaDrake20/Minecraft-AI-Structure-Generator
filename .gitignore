@@ -406,6 +406,7 @@ usercache.json
 version.json
 whitelist.json
 ops.json
+serverpath.json
 
 #Minecraft server files
 **/*.mca
@@ -413,3 +414,4 @@ Minecraft_Drawer/world/poi/r.-1.-1.mca
 session.lock
 Minecraft_Drawer/world/session.lock
 *.mca
+Minecraft_Drawer/Minecraft_Drawer/serverpath.json
