@@ -179,19 +179,16 @@ namespace MAUIAPP
 
         public static Dictionary<Color, string> colorsDictionary = new Dictionary<Color, string>();
         public static string exeDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-        public string configPath = Path.Combine(exeDirectory, "serverpath.json");
         public Process mcServerProc;
 
         public int xCoord;
         public int yCoord;
         public int zCoord;
+        public static bool dicAdded;
 
         private void submitButton_Clicked(object sender, EventArgs e)
         {
-            string jso = File.ReadAllText(configPath);
-            dynamic confi = JsonConvert.DeserializeObject(jso);
-            string imgPath = confi["imgPath"];
-            string imagePath = Path.Combine(mcServerProc.StartInfo.WorkingDirectory, imgPath, "MineCraftImage.png");
+            string imagePath = Path.Combine(mcServerProc.StartInfo.WorkingDirectory, exeDirectory, "MineCraftImage.png");
             try
             {
                 Debug.WriteLine("Reading image file...");
@@ -244,7 +241,6 @@ namespace MAUIAPP
         public void StartServer()
         {
             Debug.WriteLine("exedir: " + exeDirectory);
-            Debug.WriteLine("configPath: " + configPath);
             Debug.WriteLine("Starting Minecraft_Drawer application...");
 
             mcServerProc = new Process();
@@ -252,30 +248,9 @@ namespace MAUIAPP
             Debug.WriteLine("Creating process for Minecraft server...");
 
 
-            if (!File.Exists(configPath))
-            {
-                Debug.WriteLine("Error: Configuration file not found.");
-                return;
-            }
-
-            try
-            {
-                Debug.WriteLine("Reading configuration file...");
-
-                string json = File.ReadAllText(configPath);
-                dynamic config = JsonConvert.DeserializeObject(json);
-
-                string serverPath = config["configPath"];
-
-                // path to your minecraft server
-                Debug.WriteLine("Server path: " + serverPath);
-                mcServerProc.StartInfo.WorkingDirectory = serverPath;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Error reading configuration file: " + ex.ToString());
-                return;
-            }
+          
+            mcServerProc.StartInfo.WorkingDirectory = exeDirectory;
+           
 
             Debug.WriteLine("Preparing to start Minecraft server process...");
 
@@ -308,7 +283,11 @@ namespace MAUIAPP
             Debug.WriteLine("Waiting for server to start (15 seconds)...");
 
             // adds available blocks and their colors to the dictionary
-            populateDictionary();
+            if(!dicAdded)
+            {
+                populateDictionary();
+            }
+            
 
             // renders an image in the game
 
@@ -347,6 +326,8 @@ namespace MAUIAPP
             colorsDictionary.Add(Color.FromArgb(139, 27, 27), "red_concrete");
             colorsDictionary.Add(Color.FromArgb(219, 92, 4), "orange_concrete");
             colorsDictionary.Add(Color.FromArgb(164, 172, 172), "white_concrete");
+
+            dicAdded = true;
         }
 
 
