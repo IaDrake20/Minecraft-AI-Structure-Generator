@@ -116,9 +116,9 @@
         <Entry x:Name="entryx" Placeholder="X" FontSize="40" Grid.Row="7" Grid.RowSpan="4" Grid.Column="5" Grid.ColumnSpan="2" Completed="entryx_Completed" IsVisible="false" HorizontalTextAlignment="Center" IsEnabled="False"/>
         <Entry x:Name ="entryy" Placeholder="Y" FontSize="40" Grid.Row="7" Grid.RowSpan="4" Grid.Column="7" Grid.ColumnSpan="2" Completed="entryy_Completed" IsVisible="false" HorizontalTextAlignment="Center" IsEnabled="False"/>
         <Entry x:Name ="entryz" Placeholder="Z" FontSize="40" Grid.Row="7" Grid.RowSpan="4" Grid.Column="9" Grid.ColumnSpan="2" Completed="entryz_Completed" IsVisible="false" HorizontalTextAlignment="Center" IsEnabled="False"/>
-        <Button x:Name ="submitButton" CornerRadius="50" Text= "Submit" FontSize="40" FontAttributes="Bold" Grid.Row="12" Grid.RowSpan="5" Grid.Column="6" Grid.ColumnSpan="4" Clicked="submitButton_Clicked" IsVisible="false" IsEnabled="False"/>
-        <Button x:Name ="quitButton" Text ="Quit" Grid.Row="18" Grid.RowSpan="4" FontSize="40" FontAttributes="Bold" CornerRadius="40" Grid.Column="12" Grid.ColumnSpan="3" Clicked="quitButton_Clicked" IsVisible="false" IsEnabled="False"/>
-        <Button x:Name ="startServerButton" Text ="Start Server" FontSize="30" FontAttributes="Bold"  CornerRadius="40" Grid.Row="18" Grid.RowSpan="4" Grid.Column="12" Grid.ColumnSpan="3" Clicked="startServerButton_Clicked" IsVisible="false" IsEnabled="False"/>
+        <Button x:Name ="submitButton" CornerRadius="50" Text= "Submit" FontSize="40" BackgroundColor="LawnGreen" FontAttributes="Bold" Grid.Row="12" Grid.RowSpan="5" Grid.Column="6" Grid.ColumnSpan="4" Clicked="submitButton_Clicked" IsVisible="false" IsEnabled="False"/>
+        <Button x:Name ="quitButton" Text ="Quit" Grid.Row="18" Grid.RowSpan="4" BackgroundColor="Red" FontSize="40" FontAttributes="Bold" CornerRadius="40" Grid.Column="12" Grid.ColumnSpan="3" Clicked="quitButton_Clicked" IsVisible="false" IsEnabled="False"/>
+        <Button x:Name ="startServerButton" Text ="Start Server" BackgroundColor="LawnGreen" FontSize="30" FontAttributes="Bold"  CornerRadius="40" Grid.Row="18" Grid.RowSpan="4" Grid.Column="12" Grid.ColumnSpan="3" Clicked="startServerButton_Clicked" IsVisible="false" IsEnabled="False"/>
         <Button x:Name ="backButton" Text ="Go Back" FontSize="40" CornerRadius="40" FontAttributes="Bold" Grid.Row="18" Grid.RowSpan="4" Grid.Column="1" Grid.ColumnSpan="3" Clicked="backButton_Clicked"  IsVisible="false" IsEnabled="False"/>
     </Grid>
 </ContentPage>
