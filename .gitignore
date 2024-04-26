@@ -17,6 +17,7 @@
 mono_crash.*
 
 # Build results
+[Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
@@ -26,6 +27,7 @@ x86/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
 bld/
+[Bb]in/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
@@ -413,6 +415,3 @@ session.lock
 Minecraft_Drawer/world/session.lock
 *.mca
 Minecraft_Drawer/Minecraft_Drawer/serverpath.json
-
-MAUIAPP/bin/Debug/net8.0-windows10.0.19041.0/win10-x64/AppX/Server/*
-MAUIAPP/bin/Debug/net8.0-windows10.0.19041.0/win10-x64/AppX/META-INF/*
