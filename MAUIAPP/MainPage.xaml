@@ -3,11 +3,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MAUIAPP.MainPage">
 
-    <Grid RowSpacing="10">
+    <Grid RowSpacing="10" ColumnSpacing="10">
         <Grid.RowDefinitions>
             <RowDefinition />
-            <RowDefinition Height="50" />
-            <RowDefinition Height= "50"/>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
@@ -21,12 +39,20 @@
             <ColumnDefinition />
             <ColumnDefinition />
             <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>        
             <Image
                 x:Name="prevImage"
-                Grid.Row="4"
-                Grid.Column="3"
-                Grid.ColumnSpan="2"
+                Grid.Row="15"
+                Grid.Column="6"
+                Grid.ColumnSpan="4"
                 Source="mc.png"
                 HeightRequest="350"
                 Aspect="AspectFit"
@@ -34,35 +60,45 @@
 
             <Label
                 Grid.Row="0"
+                Grid.RowSpan="3"
                 x:Name ="lblTitle"
                 VerticalTextAlignment="Center"
-                Grid.ColumnSpan="8"
+                Grid.ColumnSpan="16"
+                FontSize="40"
                 Text="Enter a prompt for an image!"
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level1" />
 
             <Entry 
                 x:Name="promptInput"
-                Grid.Row="1"
-                Grid.Column="2"
-                Grid.ColumnSpan="4"
+                Grid.Row="4"
+                FontSize="20"
+                Grid.RowSpan="3"
+                Grid.Column="5"
+                Grid.ColumnSpan="6"
                 Placeholder="Enter a prompt"
                 TextChanged="entry_TextChanged"
                 Completed="entry_Completed" />
 
             <Button
-                Grid.Row="2"
+                Grid.Row="4"
+                Grid.RowSpan="3"
+                FontSize="20"
                 Grid.Column="2"
+                Grid.ColumnSpan="3"
                 x:Name="btnPreview"
-                Text="Preview Below" 
+                Text="Generate Image" 
                 FontAttributes="Bold"
                 SemanticProperties.Hint="Shows a preview of the prompted image below."
                 Clicked="btnPreview_Clicked"
                 HorizontalOptions="Fill" />
     
             <Button
-                Grid.Row="2"
-                Grid.Column="5"
+                Grid.Row="4"
+                Grid.RowSpan="3"
+                Grid.Column="11"
+                FontSize="20"
+                Grid.ColumnSpan="3"
                 x:Name="btnAddtoMinecraft"
                 Text="Add to Minecraft" 
                 FontAttributes="Bold"
@@ -71,8 +107,18 @@
                 HorizontalOptions="Fill" />
 
         <ActivityIndicator x:Name="activityIndicator" IsRunning="False" Color="Blue" 
-                Grid.Column="3"
-                Grid.Row="4"
+                Grid.Column="7"
+                Grid.Row="12"
+                Grid.RowSpan="3"
                 Grid.ColumnSpan="2"/>
+
+        <Label x:Name="myLabel" Text="Enter the XYZ Coordinates:" FontSize="50" Grid.Row="3" Grid.RowSpan="4" Grid.Column="3" Grid.ColumnSpan="10" HorizontalTextAlignment="Center" IsVisible="false" IsEnabled="False"/>
+        <Entry x:Name="entryx" Placeholder="X" FontSize="40" Grid.Row="7" Grid.RowSpan="4" Grid.Column="5" Grid.ColumnSpan="2" Completed="entryx_Completed" IsVisible="false" HorizontalTextAlignment="Center" IsEnabled="False"/>
+        <Entry x:Name ="entryy" Placeholder="Y" FontSize="40" Grid.Row="7" Grid.RowSpan="4" Grid.Column="7" Grid.ColumnSpan="2" Completed="entryy_Completed" IsVisible="false" HorizontalTextAlignment="Center" IsEnabled="False"/>
+        <Entry x:Name ="entryz" Placeholder="Z" FontSize="40" Grid.Row="7" Grid.RowSpan="4" Grid.Column="9" Grid.ColumnSpan="2" Completed="entryz_Completed" IsVisible="false" HorizontalTextAlignment="Center" IsEnabled="False"/>
+        <Button x:Name ="submitButton" CornerRadius="50" Text= "Submit" FontSize="40" FontAttributes="Bold" Grid.Row="12" Grid.RowSpan="5" Grid.Column="6" Grid.ColumnSpan="4" Clicked="submitButton_Clicked" IsVisible="false" IsEnabled="False"/>
+        <Button x:Name ="quitButton" Text ="Quit" Grid.Row="18" Grid.RowSpan="4" FontSize="40" FontAttributes="Bold" CornerRadius="40" Grid.Column="12" Grid.ColumnSpan="3" Clicked="quitButton_Clicked" IsVisible="false" IsEnabled="False"/>
+        <Button x:Name ="startServerButton" Text ="Start Server" FontSize="30" FontAttributes="Bold"  CornerRadius="40" Grid.Row="18" Grid.RowSpan="4" Grid.Column="12" Grid.ColumnSpan="3" Clicked="startServerButton_Clicked" IsVisible="false" IsEnabled="False"/>
+        <Button x:Name ="backButton" Text ="Go Back" FontSize="40" CornerRadius="40" FontAttributes="Bold" Grid.Row="18" Grid.RowSpan="4" Grid.Column="1" Grid.ColumnSpan="3" Clicked="backButton_Clicked"  IsVisible="false" IsEnabled="False"/>
     </Grid>
 </ContentPage>
