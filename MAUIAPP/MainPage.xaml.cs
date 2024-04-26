@@ -99,41 +99,48 @@ namespace MAUIAPP
         }
         private async void btnPreview_Clicked(object sender, EventArgs e)
         {
-            AudioPlayerViewModel playerViewModel = new AudioPlayerViewModel();
-            playerViewModel.PlayClickAudio();
-            activityIndicator.IsRunning = true;
-            activityIndicator.IsVisible = true;
-            lblTitle.Text = "Your image will be ready in a few moments!";
-            prevImage.IsVisible = false;
-            prompt = promptInput.Text.Trim();
-            btnPreview.IsEnabled = false;
-            promptInput.IsEnabled = false;
+           
 
-            ImageResult response = await CallApi();
-            Bitmap map = Base64StringToBitmap(response.Data[0].Base64Data);
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            {
+                AudioPlayerViewModel playerViewModel = new AudioPlayerViewModel();
+                playerViewModel.PlayClickAudio();
+                activityIndicator.IsRunning = true;
+                activityIndicator.IsVisible = true;
+                lblTitle.Text = "Your image will be ready in a few moments!";
+                prevImage.IsVisible = false;
+                prompt = promptInput.Text.Trim();
+                btnPreview.IsEnabled = false;
+                promptInput.IsEnabled = false;
 
-            string filename = "MineCraftImage.png";
-            directory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            Console.WriteLine(directory.ToString());
-            string filepath = Path.Combine(directory, filename);
-            
-            
-
-            filepath = Path.Combine(directory, filename);
-
-            map.Save(filepath, ImageFormat.Png);
-            
-
-            activityIndicator.IsRunning = false;
-            activityIndicator.IsVisible= false;            
-            prevImage.Source = filepath;
-            playerViewModel.StopAudio();
-            btnPreview.IsEnabled = true;
-            promptInput.IsEnabled = true;
-            prevImage.IsVisible = true;
-            lblTitle.Text = "Export to Minecraft or generate another image!";
+                // There is internet connection, proceed with API call
+                ImageResult response = await CallApi();
+                Bitmap map = Base64StringToBitmap(response.Data[0].Base64Data);
+                string filename = "MineCraftImage.png";
+                directory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                Console.WriteLine(directory.ToString());
+                string filepath = Path.Combine(directory, filename);
 
 
+
+                filepath = Path.Combine(directory, filename);
+
+                map.Save(filepath, ImageFormat.Png);
+
+                activityIndicator.IsRunning = false;
+                activityIndicator.IsVisible = false;
+                prevImage.Source = filepath;
+                playerViewModel.StopAudio();
+                btnPreview.IsEnabled = true;
+                promptInput.IsEnabled = true;
+                prevImage.IsVisible = true;
+                lblTitle.Text = "Export to Minecraft or generate another image!";
+            }
+            else
+            {
+                // There is no internet connection, show an error
+                await DisplayAlert("Error", "No internet connection.", "OK");
+            }
         }
 
 
