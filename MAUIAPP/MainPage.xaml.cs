@@ -47,18 +47,6 @@ namespace MAUIAPP
 
         private async void btnAddtoMinecraft_Clicked(object sender, EventArgs e)
         {
-            //process.StartInfo.FileName = "C:\\Users\\iosdr\\Documents\\GitHub\\Minecraft-AI-Structure-Generator\\Minecraft_Drawer\\Minecraft_Drawer\\bin\\Debug\\Minecraft_Drawer.exe";
-            //process.StartInfo.Arguments = "-n";
-            process.StartInfo.WindowStyle = ProcessWindowStyle.Maximized;
-            //process.Start("C:\\Users\\iosdr\\Documents\\GitHub\\Minecraft-AI-Structure-Generator\\Minecraft_Drawer\\Minecraft_Drawer\\bin\\Debug\\Minecraft_Drawer.exe");
-            
-            //System.Diagnostics.Process.Start("");
-            process = new Process();
-            process.StartInfo.FileName = ("C:\\Users\\iosdr\\Documents\\GitHub\\Minecraft-AI-Structure-Generator\\Minecraft_Drawer\\Minecraft_Drawer\\bin\\Debug\\Minecraft_Drawer.exe");
-            process.StartInfo.WorkingDirectory = "C:\\Users\\iosdr\\Documents\\GitHub\\Minecraft-AI-Structure-Generator\\Minecraft_Drawer\\Minecraft_Drawer\\bin\\Debug";
-            process.StartInfo.UseShellExecute = true;
-            process.Start();
-            process.WaitForExit();// Waits here for the process to exit.
             await Navigation.PushAsync(new Coords());
         }
 

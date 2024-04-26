@@ -299,8 +299,8 @@ namespace Minecraft_Drawer
                 // renders an image in the game
                
                 
-                    string jso= File.ReadAllText(configPath);
-                    dynamic confi = JsonConvert.DeserializeObject(jso);
+                string jso= File.ReadAllText(configPath);
+                dynamic confi = JsonConvert.DeserializeObject(jso);
                 string imgPath = confi["imagePath"];
                 string imagePath = Path.Combine(mcServerProc.StartInfo.WorkingDirectory, imgPath, "MineCraftImage.png");
                 

@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MAUIAPP.Coords">
+
     <Grid RowSpacing="10">
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -25,10 +26,11 @@
         <Label Text="Enter the build coordinates:" Grid.Row="1" Grid.RowSpan="1" Grid.Column="2" Grid.ColumnSpan="5"
                HorizontalTextAlignment="Center"
                FontSize="35"/>
-        <Entry Placeholder="X" Grid.Row="2" Grid.RowSpan="1" Grid.Column="2" Grid.ColumnSpan="1"/>
-        <Entry Placeholder="Y" Grid.Row="2" Grid.RowSpan="1" Grid.Column="4" Grid.ColumnSpan="1"/>
-        <Entry Placeholder="Z" Grid.Row="2" Grid.RowSpan="1" Grid.Column="6" Grid.ColumnSpan="1"/>
-        <Button Text="Submit" Grid.Row="4" Grid.RowSpan="1" Grid.Column="3" Grid.ColumnSpan="3"/>
-        <Button Text ="Quit" Grid.Row="0" Grid.RowSpan="1" Grid.Column="7" Grid.ColumnSpan="1"/>
+        <Entry x:Name="entryx" Placeholder="X" Grid.Row="2" Grid.RowSpan="1" Grid.Column="2" Grid.ColumnSpan="1" Completed="entryx_Completed"/>
+        <Entry x:Name ="entryy" Placeholder="Y" Grid.Row="2" Grid.RowSpan="1" Grid.Column="4" Grid.ColumnSpan="1" Completed="entryy_Completed"/>
+        <Entry x:Name ="entryz" Placeholder="Z" Grid.Row="2" Grid.RowSpan="1" Grid.Column="6" Grid.ColumnSpan="1" Completed="entryz_Completed"/>
+        <Button x:Name ="submitButton" Text= "Submit" Grid.Row="4" Grid.RowSpan="1" Grid.Column="3" Grid.ColumnSpan="3" Clicked="submitButton_Clicked"/>
+        <Button x:Name ="quitButton" Text ="Quit" Grid.Row="0" Grid.RowSpan="1" Grid.Column="7" Grid.ColumnSpan="1" Clicked="quitButton_Clicked"/>
+        <Button x:Name ="startServerButton" Text ="Start Minecraft Server" Grid.Row="3" Grid.RowSpan="1" Grid.Column="7" Grid.ColumnSpan="1" Clicked="startServerButton_Clicked"/>
     </Grid>
 </ContentPage>
